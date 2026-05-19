@@ -1,0 +1,2414 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>kahala Labs</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <style>
+      /* ── Reset & Base ─────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --navy: #0f1a2e;
+        --slate: #1e2d47;
+        --steel: #3a4f6f;
+        --mist: #8b9bb5;
+        --silver: #c5cdd9;
+        --cloud: #e9edf3;
+        --white: #ffffff;
+        --accent: #2a6fdb;
+        --accent-light: #4a8fee;
+        --gold: #c9a84c;
+        --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-heading: "Playfair Display", Georgia, serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-body);
+        color: var(--navy);
+        background: var(--white);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Navigation ───────────────────────────────── */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: var(--navy);
+        transition: box-shadow 0.3s ease;
+      }
+      .nav.scrolled {
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+      }
+
+      .nav-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.9rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .logo {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+      .logo img {
+        height: 44px;
+        width: auto;
+        filter: brightness(1.3) contrast(0.95);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 3.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: var(--silver);
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        position: relative;
+        transition: color 0.3s;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+        transition: width 0.3s ease;
+      }
+      .nav-links a:hover {
+        color: var(--white);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+      .nav-links a.active {
+        color: var(--cloud);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 6px;
+        padding: 0.25rem 0.75rem;
+        backdrop-filter: blur(4px);
+      }
+      .nav-links a.active::after {
+        width: 0;
+      }
+
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--silver);
+        margin: 5px 0;
+        transition: all 0.3s;
+      }
+
+      /* ── Hero ─────────────────────────────────────── */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 8rem 2rem 4rem;
+        background: linear-gradient(160deg, var(--white) 0%, var(--cloud) 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -40%;
+        right: -20%;
+        width: 700px;
+        height: 700px;
+        background: radial-gradient(
+          circle,
+          rgba(42, 111, 219, 0.06) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-label {
+        display: inline-block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+        padding: 0.4rem 1.2rem;
+        border: 1px solid rgba(42, 111, 219, 0.25);
+        border-radius: 100px;
+      }
+
+      .hero h1 {
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        color: var(--navy);
+        line-height: 1.15;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 1.15rem;
+        color: var(--steel);
+        max-width: 600px;
+        margin: 0 auto 2.5rem;
+        line-height: 1.8;
+      }
+
+      .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.9rem 2.2rem;
+        background: var(--navy);
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        border-radius: 6px;
+        transition:
+          background 0.3s,
+          transform 0.2s;
+      }
+      .hero-cta:hover {
+        background: var(--slate);
+        transform: translateY(-1px);
+      }
+      .hero-cta svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* ── Sections (shared) ────────────────────────── */
+      .section {
+        padding: 7rem 2rem;
+      }
+      .section-alt {
+        background: var(--cloud);
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .section-eyebrow {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+
+      .section-title {
+        font-family: var(--font-heading);
+        font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+        font-weight: 600;
+        color: var(--navy);
+        margin-bottom: 1.25rem;
+        line-height: 1.2;
+      }
+
+      .section-subtitle {
+        font-size: 1.05rem;
+        color: var(--steel);
+        max-width: 640px;
+        line-height: 1.8;
+        margin-bottom: 3rem;
+      }
+
+      /* ── Card Grid ────────────────────────────────── */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .card {
+        background: var(--white);
+        border: 1px solid var(--cloud);
+        border-radius: 10px;
+        padding: 2.5rem 2rem;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(15, 26, 46, 0.08);
+      }
+
+      .card-icon {
+        width: 52px;
+        height: 52px;
+        background: linear-gradient(
+          135deg,
+          rgba(42, 111, 219, 0.1),
+          rgba(42, 111, 219, 0.04)
+        );
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+      .card-icon svg {
+        width: 24px;
+        height: 24px;
+        color: var(--accent);
+      }
+
+      .card h3 {
+        font-family: var(--font-heading);
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--navy);
+        margin-bottom: 0.75rem;
+      }
+
+      .card p {
+        color: var(--steel);
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+
+      /* ── Research Portfolio ─────────────────────────── */
+      .research-intro {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
+        margin-bottom: 3.5rem;
+      }
+      .research-intro-text .section-subtitle {
+        margin-bottom: 0;
+      }
+      .research-scope {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+      .scope-tag {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 0.9rem;
+        background: rgba(42, 111, 219, 0.05);
+        border-radius: 6px;
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: var(--steel);
+      }
+      .scope-tag svg {
+        width: 14px;
+        height: 14px;
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+
+      .research-domains {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+      }
+
+      .domain-card {
+        background: var(--white);
+        border: 1px solid var(--cloud);
+        border-radius: 10px;
+        padding: 2rem 1.75rem;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .domain-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(15, 26, 46, 0.08);
+      }
+      .domain-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      }
+
+      .domain-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+      .domain-icon {
+        width: 42px;
+        height: 42px;
+        background: linear-gradient(
+          135deg,
+          rgba(42, 111, 219, 0.1),
+          rgba(42, 111, 219, 0.04)
+        );
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .domain-icon svg {
+        width: 20px;
+        height: 20px;
+        color: var(--accent);
+      }
+
+      .domain-card h3 {
+        font-family: var(--font-heading);
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--navy);
+      }
+
+      .domain-card > p {
+        color: var(--steel);
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 1.25rem;
+      }
+
+      .domain-capabilities {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+      .domain-capabilities span {
+        padding: 0.3rem 0.7rem;
+        background: var(--cloud);
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--steel);
+      }
+
+      .research-impact {
+        margin-top: 3rem;
+        background: linear-gradient(135deg, var(--navy), var(--slate));
+        border-radius: 12px;
+        padding: 2.5rem 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+      .research-impact-text h3 {
+        font-family: var(--font-heading);
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--white);
+        margin-bottom: 0.5rem;
+      }
+      .research-impact-text p {
+        font-size: 0.92rem;
+        color: var(--silver);
+        max-width: 500px;
+      }
+      .research-stats {
+        display: flex;
+        gap: 3rem;
+      }
+      .research-stat {
+        text-align: center;
+      }
+      .research-stat h4 {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--gold);
+      }
+      .research-stat p {
+        font-size: 0.75rem;
+        color: var(--mist);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .impact-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--white);
+        transition:
+          background 0.3s,
+          border-color 0.3s;
+        flex-shrink: 0;
+      }
+      .impact-cta:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      .impact-cta svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .infra-cta-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .infra-cta-bar p {
+        font-size: 0.92rem;
+        color: var(--silver);
+        max-width: 500px;
+      }
+
+      .about-cta-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+      }
+      .about-cta-content h3 {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .about-cta-content p {
+        font-size: 0.95rem;
+        color: var(--silver);
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .research-intro {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+        .research-scope {
+          grid-template-columns: 1fr;
+        }
+        .research-impact {
+          flex-direction: column;
+          text-align: center;
+          padding: 2rem 1.5rem;
+        }
+        .research-stats {
+          gap: 1.5rem;
+        }
+        .infra-cta-bar {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+
+      /* ── Section Contact CTA ──────────────────────── */
+      .section-contact {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+        padding: 0.65rem 1.5rem;
+        border: 1px solid var(--accent);
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--accent);
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+      .section-contact:hover {
+        background: var(--accent);
+        color: var(--white);
+      }
+      .section-contact svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* ── Ventures Infra Banner ─────────────────────── */
+      .ventures-infra {
+        margin-top: 3rem;
+        background: linear-gradient(135deg, var(--navy), var(--slate));
+        border-radius: 12px;
+        padding: 3rem;
+        color: var(--white);
+      }
+      .ventures-infra-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .ventures-infra-header h3 {
+        font-family: var(--font-heading);
+        font-size: 1.4rem;
+        font-weight: 600;
+      }
+      .ventures-infra-header .badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 0.35rem 1rem;
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        border-radius: 100px;
+      }
+
+      .infra-overview {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+      }
+      .infra-overview p {
+        font-size: 0.92rem;
+        color: var(--silver);
+        line-height: 1.75;
+      }
+      .infra-overview .market-data {
+        font-size: 0.85rem;
+        color: var(--mist);
+        line-height: 1.8;
+      }
+      .infra-overview .market-data strong {
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      .site-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+      }
+      .site-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 1.75rem 1.5rem;
+        transition: background 0.3s;
+      }
+      .site-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .site-card h4 {
+        font-family: var(--font-heading);
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--white);
+        margin-bottom: 0.35rem;
+      }
+      .site-card .site-region {
+        font-size: 0.75rem;
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 1rem;
+      }
+      .site-card ul {
+        list-style: none;
+        padding: 0;
+      }
+      .site-card ul li {
+        font-size: 0.85rem;
+        color: var(--silver);
+        padding: 0.3rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        gap: 0.5rem;
+      }
+      .site-card ul li:last-child {
+        border-bottom: none;
+      }
+      .site-card ul li span.label {
+        color: var(--mist);
+        min-width: 80px;
+        flex-shrink: 0;
+        font-weight: 500;
+      }
+      .site-card .site-highlight {
+        margin-top: 1rem;
+        padding: 0.5rem 0.75rem;
+        background: rgba(201, 168, 76, 0.12);
+        border-left: 3px solid var(--gold);
+        border-radius: 4px;
+        font-size: 0.8rem;
+        color: var(--gold);
+        font-weight: 500;
+      }
+
+      .infra-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .infra-stat h4 {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--gold);
+        margin-bottom: 0.25rem;
+      }
+      .infra-stat p {
+        font-size: 0.78rem;
+        color: var(--mist);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      @media (max-width: 768px) {
+        .ventures-infra {
+          padding: 2rem 1.25rem;
+        }
+        .infra-overview {
+          grid-template-columns: 1fr;
+        }
+        .infra-stats {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      /* ── Portfolio Spotlights ─────────────────────── */
+      .portfolio-section {
+        margin-top: 3rem;
+      }
+      .portfolio-section > .section-eyebrow {
+        margin-bottom: 0.5rem;
+      }
+      .portfolio-section > h3 {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--navy);
+        margin-bottom: 0.5rem;
+      }
+      .portfolio-section > p {
+        font-size: 0.95rem;
+        color: var(--steel);
+        max-width: 640px;
+        margin-bottom: 2rem;
+        line-height: 1.7;
+      }
+
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .portfolio-card {
+        background: var(--white);
+        border: 1px solid var(--cloud);
+        border-radius: 12px;
+        overflow: hidden;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .portfolio-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(15, 26, 46, 0.08);
+      }
+
+      .portfolio-card-header {
+        background: linear-gradient(135deg, var(--navy), var(--slate));
+        padding: 1.75rem 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .portfolio-card-header .pc-icon {
+        width: 48px;
+        height: 48px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .portfolio-card-header .pc-icon svg {
+        width: 22px;
+        height: 22px;
+        color: var(--gold);
+      }
+      .portfolio-card-header h4 {
+        font-family: var(--font-heading);
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--white);
+      }
+      .portfolio-card-header .pc-tag {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-top: 0.2rem;
+      }
+
+      .portfolio-card-body {
+        padding: 2rem;
+      }
+      .portfolio-card-body > p {
+        font-size: 0.92rem;
+        color: var(--steel);
+        line-height: 1.75;
+        margin-bottom: 1.5rem;
+      }
+
+      .portfolio-role-label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+
+      .portfolio-roles {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin-bottom: 1.5rem;
+      }
+      .portfolio-role {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        font-size: 0.88rem;
+        color: var(--steel);
+        line-height: 1.6;
+      }
+      .portfolio-role svg {
+        width: 16px;
+        height: 16px;
+        color: var(--accent);
+        flex-shrink: 0;
+        margin-top: 0.2rem;
+      }
+
+      .portfolio-tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+      .portfolio-tech-tags span {
+        padding: 0.25rem 0.65rem;
+        background: var(--cloud);
+        border-radius: 100px;
+        font-size: 0.72rem;
+        font-weight: 500;
+        color: var(--steel);
+      }
+
+      @media (max-width: 768px) {
+        .portfolio-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ── Consulting Steps ─────────────────────────── */
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        counter-reset: step;
+      }
+
+      .step {
+        position: relative;
+        padding: 2.5rem 2rem 2rem;
+        background: var(--white);
+        border: 1px solid var(--cloud);
+        border-radius: 10px;
+        counter-increment: step;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .step:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(15, 26, 46, 0.08);
+      }
+
+      .step::before {
+        content: counter(step, decimal-leading-zero);
+        font-family: var(--font-heading);
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: rgba(42, 111, 219, 0.12);
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        line-height: 1;
+      }
+
+      .step h3 {
+        font-family: var(--font-heading);
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--navy);
+        margin-bottom: 0.75rem;
+      }
+      .step p {
+        color: var(--steel);
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+
+      /* ── About ────────────────────────────────────── */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .about-text .section-subtitle {
+        margin-bottom: 1.5rem;
+      }
+
+      .about-values {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+      }
+
+      .value {
+        padding: 1.5rem;
+        background: rgba(42, 111, 219, 0.04);
+        border-radius: 8px;
+        border-left: 3px solid var(--accent);
+      }
+      .value h4 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--navy);
+        margin-bottom: 0.35rem;
+      }
+      .value p {
+        font-size: 0.85rem;
+        color: var(--steel);
+        line-height: 1.6;
+      }
+
+      .about-visual {
+        background: linear-gradient(135deg, var(--navy), var(--slate));
+        border-radius: 12px;
+        padding: 3rem;
+        color: var(--white);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 380px;
+      }
+
+      .about-visual .stat-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .stat h3 {
+        font-family: var(--font-heading);
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--gold);
+        margin-bottom: 0.25rem;
+      }
+      .stat p {
+        font-size: 0.85rem;
+        color: var(--silver);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      /* ── Footer ───────────────────────────────────── */
+      /* ── Global Presence Banner ────────────────────── */
+      .global-presence {
+        background: linear-gradient(135deg, var(--slate), var(--navy));
+        padding: 5rem 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .global-presence::before {
+        content: "";
+        position: absolute;
+        top: -30%;
+        left: -10%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(42, 111, 219, 0.06) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+      }
+      .global-presence::after {
+        content: "";
+        position: absolute;
+        bottom: -30%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(201, 168, 76, 0.05) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+      }
+
+      .global-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .global-header {
+        text-align: center;
+        margin-bottom: 3.5rem;
+      }
+      .global-header .section-eyebrow {
+        color: var(--gold);
+        margin-bottom: 0.75rem;
+      }
+      .global-header h2 {
+        font-family: var(--font-heading);
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 600;
+        color: var(--white);
+        margin-bottom: 0.75rem;
+      }
+      .global-header p {
+        font-size: 0.95rem;
+        color: var(--silver);
+        max-width: 520px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      .locations-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+
+      .location-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 2rem 1.75rem;
+        transition:
+          background 0.3s,
+          border-color 0.3s;
+        position: relative;
+      }
+      .location-card:hover {
+        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .location-flag {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .location-card h3 {
+        font-family: var(--font-heading);
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--white);
+        margin-bottom: 0.25rem;
+      }
+
+      .location-region {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1rem;
+      }
+
+      .location-address {
+        font-size: 0.85rem;
+        color: var(--silver);
+        line-height: 1.7;
+        font-style: normal;
+      }
+
+      .location-divider {
+        width: 30px;
+        height: 2px;
+        background: rgba(42, 111, 219, 0.4);
+        border: none;
+        margin: 1rem 0;
+      }
+
+      @media (max-width: 768px) {
+        .locations-grid {
+          grid-template-columns: 1fr;
+        }
+        .global-presence {
+          padding: 3.5rem 1.5rem;
+        }
+      }
+
+      /* ── Footer ───────────────────────────────────── */
+      .footer {
+        background: var(--navy);
+        color: var(--mist);
+        padding: 2.5rem 2rem;
+        border-top: 1px solid var(--slate);
+      }
+
+      .footer-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-logo img {
+        height: 36px;
+        width: auto;
+        filter: brightness(1.3) contrast(0.9);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .footer-links a {
+        color: var(--mist);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.3s;
+      }
+      .footer-links a:hover {
+        color: var(--white);
+      }
+
+      .footer-copy {
+        font-size: 0.8rem;
+        color: var(--steel);
+        width: 100%;
+        text-align: center;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--slate);
+      }
+
+      /* ── Responsive ───────────────────────────────── */
+      @media (max-width: 768px) {
+        .nav-inner {
+          flex-direction: row;
+          justify-content: space-between;
+          padding: 0 1.5rem;
+          height: 64px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .nav-toggle {
+          display: block;
+        }
+
+        .nav-links.open {
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          top: 64px;
+          left: 0;
+          right: 0;
+          background: var(--navy);
+          padding: 1.5rem 2rem;
+          border-bottom: 1px solid var(--slate);
+          gap: 1.25rem;
+        }
+
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .about-values {
+          grid-template-columns: 1fr;
+        }
+
+        .section {
+          padding: 4.5rem 1.5rem;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+          text-align: center;
+        }
+        .footer-links {
+          justify-content: center;
+        }
+      }
+
+      /* ── Fade-in animation ────────────────────────── */
+      .fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ────── Navigation ────── -->
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="#hero" class="logo"
+          ><img src="/kahalaLabsLogo.png" alt="Kahala Labs"
+        /></a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#ventures">Ventures</a></li>
+          <li><a href="#consulting">Consulting</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ────── Hero ────── -->
+    <section class="hero" id="hero">
+      <div class="hero-content fade-up">
+        <span class="hero-label">Where Science Meets Scale</span>
+        <h1>From Breakthrough Research to Enterprise-Ready AI</h1>
+        <p>
+          Kahala Labs bridges the gap between academic innovation and market
+          impact — partnering with leading universities, venture firms, and
+          enterprises to commercialize transformative AI.
+        </p>
+        <a href="#research" class="hero-cta">
+          Explore Our Work
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ────── About ────── -->
+    <section class="section section-alt" id="about">
+      <div class="container fade-up">
+        <p class="section-eyebrow">About</p>
+        <h2 class="section-title">
+          Built at the Intersection of Research, Capital, and Enterprise
+        </h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <p class="section-subtitle">
+              Kahala Labs operates at the nexus of academic research, venture
+              capital, and enterprise technology. We exist to close the gap
+              between what's possible in the lab and what's deployable in the
+              real world.
+            </p>
+            <p class="section-subtitle" style="margin-top: -1rem">
+              Our team brings together researchers, operators, and strategists
+              who have built and scaled AI systems across industries — from
+              early-stage spinouts to Fortune 500 deployments.
+            </p>
+            <div class="about-values">
+              <div class="value">
+                <h4>Rigor</h4>
+                <p>Grounded in research, validated by evidence</p>
+              </div>
+              <div class="value">
+                <h4>Security</h4>
+                <p>Secure-by-design from day one</p>
+                x
+              </div>
+              <div class="value">
+                <h4>Impact</h4>
+                <p>Measured by outcomes, not outputs</p>
+              </div>
+              <div class="value">
+                <h4>Partnership</h4>
+                <p>Embedded with your team, not outside it</p>
+              </div>
+            </div>
+          </div>
+          <div class="about-visual">
+            <div class="about-cta-content">
+              <h3>Get in Touch</h3>
+              <p>
+                We work with universities, venture firms, and enterprises across
+                multiple industries. To learn more about our team, track record,
+                and how we can partner with you, reach out directly.
+              </p>
+              <a href="mailto:contact@kahalalabs.com" class="impact-cta">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                  />
+                </svg>
+                contact@kahalalabs.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────── Research ────── -->
+    <section class="section" id="research">
+      <div class="container fade-up">
+        <p class="section-eyebrow">Research</p>
+        <h2 class="section-title">
+          Energy Efficiency &amp; Security for Edge AI and Embodied Intelligence
+        </h2>
+
+        <div class="research-intro">
+          <div class="research-intro-text">
+            <p class="section-subtitle">
+              Kahala Labs collaborates with leading university research groups
+              to advance the frontier of efficient, secure, and deployable AI —
+              spanning architectures, systems, applications, and emerging
+              computing paradigms. Our work bridges foundational research with
+              real-world commercialization across seven core domains.
+            </p>
+          </div>
+          <div class="research-scope">
+            <div class="scope-tag">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21"
+                />
+              </svg>
+              GPUs, FPGAs, NPUs, TPUs
+            </div>
+            <div class="scope-tag">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"
+                />
+              </svg>
+              Adversarial &amp; Backdoor Defense
+            </div>
+            <div class="scope-tag">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+                />
+              </svg>
+              Neuromorphic &amp; Quantum
+            </div>
+            <div class="scope-tag">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                />
+              </svg>
+              Healthcare &amp; Robotics
+            </div>
+            <div class="scope-tag">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+                />
+              </svg>
+              Multimodal LLMs &amp; VLAs
+            </div>
+            <div class="scope-tag">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125z"
+                />
+              </svg>
+              Edge &amp; Embedded Deployment
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Domain Cards ── -->
+        <div class="research-domains">
+          <!-- 1. Energy-Efficient Edge AI -->
+          <div class="domain-card">
+            <div class="domain-header">
+              <div class="domain-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+                  />
+                </svg>
+              </div>
+              <h3>Energy-Efficient Edge AI</h3>
+            </div>
+            <p>
+              Designing low-power deep learning architectures, memory-optimized
+              DNN accelerators, and cross-layer model compression techniques
+              that achieve up to 94% energy-delay improvements — enabling AI
+              inference on resource-constrained edge devices.
+            </p>
+            <div class="domain-capabilities">
+              <span>DNN Accelerator Design</span>
+              <span>DRAM Energy Optimization</span>
+              <span>Pruning &amp; Quantization</span>
+              <span>HW-Aware NAS</span>
+              <span>Approximate Computing</span>
+              <span>Tiny ML</span>
+            </div>
+          </div>
+
+          <!-- 2. ML Security & Privacy -->
+          <div class="domain-card">
+            <div class="domain-header">
+              <div class="domain-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                  />
+                </svg>
+              </div>
+              <h3>ML Security &amp; Privacy</h3>
+            </div>
+            <p>
+              Comprehensive adversarial robustness research spanning attack
+              detection, backdoor defense, deepfake identification, LLM
+              jailbreak analysis, and side-channel mitigation — building
+              trustworthy AI systems resilient to emerging threat vectors.
+            </p>
+            <div class="domain-capabilities">
+              <span>Adversarial Attack Defense</span>
+              <span>Backdoor Detection</span>
+              <span>Deepfake Analysis</span>
+              <span>LLM Jailbreak Research</span>
+              <span>Side-Channel Mitigation</span>
+              <span>Hardware Obfuscation</span>
+            </div>
+          </div>
+
+          <!-- 3. Neuromorphic Computing -->
+          <div class="domain-card">
+            <div class="domain-header">
+              <div class="domain-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25z"
+                  />
+                </svg>
+              </div>
+              <h3>Neuromorphic Computing</h3>
+            </div>
+            <p>
+              Spiking neural network (SNN) research leveraging neuromorphic
+              processors for ultra-low-power inference — with demonstrated
+              applications in autonomous driving, smart agriculture, and
+              event-driven vision using dynamic vision sensors.
+            </p>
+            <div class="domain-capabilities">
+              <span>Spiking Neural Networks</span>
+              <span>Neuromorphic Processors</span>
+              <span>Event-Driven Vision</span>
+              <span>Continual Learning</span>
+              <span>Smart Agriculture</span>
+              <span>ADAS Applications</span>
+            </div>
+          </div>
+
+          <!-- 4. Embodied AI & Robotics -->
+          <div class="domain-card">
+            <div class="domain-header">
+              <div class="domain-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.58-5.84a14.927 14.927 0 0 1-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                  />
+                </svg>
+              </div>
+              <h3>Embodied AI &amp; Robotics</h3>
+            </div>
+            <p>
+              Brain-computer interface (BCI) controlled robotic arms using EEG
+              and gaze tracking, autonomous rover systems with SLAM-based
+              exploration, and real-time object search using vision-language
+              models with sub-20cm localization accuracy.
+            </p>
+            <div class="domain-capabilities">
+              <span>EEG-Gaze Robotic Control</span>
+              <span>SLAM &amp; Exploration</span>
+              <span>Vision-Language Navigation</span>
+              <span>Trajectory Planning</span>
+              <span>Real-Time Object Search</span>
+              <span>Sensor Fusion</span>
+            </div>
+          </div>
+
+          <!-- 5. Healthcare AI -->
+          <div class="domain-card">
+            <div class="domain-header">
+              <div class="domain-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                  />
+                </svg>
+              </div>
+              <h3>Edge AI for Healthcare</h3>
+            </div>
+            <p>
+              FPGA-accelerated medical image processing for real-time ultrasound
+              analysis, automated brain MRI lesion segmentation with multimodal
+              LLM-generated diagnostic reports, and energy-efficient hardware
+              for deployable clinical edge systems.
+            </p>
+            <div class="domain-capabilities">
+              <span>Medical Image Segmentation</span>
+              <span>Ultrasound Edge Processing</span>
+              <span>FPGA Accelerators</span>
+              <span>MLLM Diagnostic Reports</span>
+              <span>Fetal Feature Detection</span>
+              <span>Prognostic AI</span>
+            </div>
+          </div>
+
+          <!-- 6. Quantum Machine Learning -->
+          <div class="domain-card">
+            <div class="domain-header">
+              <div class="domain-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
+                  />
+                </svg>
+              </div>
+              <h3>Quantum Machine Learning</h3>
+            </div>
+            <p>
+              Design-space exploration of hybrid quantum-classical neural
+              network architectures, quantum federated learning for
+              privacy-preserving AI, adversarially robust quantum models, and
+              real-world QML applications in climate modeling, cybersecurity,
+              and portfolio optimization.
+            </p>
+            <div class="domain-capabilities">
+              <span>Hybrid QNN Architectures</span>
+              <span>Quantum Federated Learning</span>
+              <span>Barren Plateau Mitigation</span>
+              <span>Circuit Cutting</span>
+              <span>Quantum Code Generation</span>
+              <span>Portfolio Optimization</span>
+            </div>
+          </div>
+
+          <!-- 7. Multimodal LLM Research -->
+          <div class="domain-card">
+            <div class="domain-header">
+              <div class="domain-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+                  />
+                </svg>
+              </div>
+              <h3>Multimodal LLM Research</h3>
+            </div>
+            <p>
+              Agentic LLM systems for offensive security (capture-the-flag),
+              AI-generated image classification, healthcare multimodal models,
+              hardware code generation, LLM-driven quantum circuit synthesis,
+              and high-accuracy model cascading for code completion.
+            </p>
+            <div class="domain-capabilities">
+              <span>Agentic Security Systems</span>
+              <span>AIGC Detection</span>
+              <span>Healthcare MLLMs</span>
+              <span>RTL Code Generation</span>
+              <span>Digital Avatars</span>
+              <span>Code Cascading</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Research Impact Bar ── -->
+        <div class="research-impact">
+          <div class="research-impact-text">
+            <h3>From Lab to Market</h3>
+            <p>
+              Our university collaborations span architectures through
+              applications — with results published at top-tier venues and
+              technologies actively transitioning to commercial deployment. For
+              details on our research portfolio, active collaborations, and
+              partnership opportunities, reach out to our research team.
+            </p>
+          </div>
+          <a href="mailto:research@kahalalabs.com" class="impact-cta">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+              />
+            </svg>
+            research@kahalalabs.com
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────── Ventures ────── -->
+    <section class="section section-alt" id="ventures">
+      <div class="container fade-up">
+        <p class="section-eyebrow">Ventures</p>
+        <h2 class="section-title">Accelerating Venture Success</h2>
+        <p class="section-subtitle">
+          Kahala Labs partners with VC firms to provide portfolio companies with
+          the strategic and technical firepower needed to scale faster and
+          smarter.
+        </p>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M2.25 18L9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0l-5.94-2.281m5.94 2.28l-2.28 5.941"
+                />
+              </svg>
+            </div>
+            <h3>VC Partnership</h3>
+            <p>
+              We work alongside venture capital firms to de-risk investments and
+              accelerate portfolio company growth through hands-on technical and
+              strategic support.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                />
+              </svg>
+            </div>
+            <h3>Due Diligence</h3>
+            <p>
+              Deep technical assessments help investors understand the true
+              potential, risks, and defensibility of emerging technology
+              ventures before and after investment.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0z"
+                />
+              </svg>
+            </div>
+            <h3>Growth Enablement</h3>
+            <p>
+              From product-market fit to scaling engineering teams, we embed
+              with startups at critical inflection points to unlock the next
+              stage of growth.
+            </p>
+          </div>
+        </div>
+
+        <!-- ── Portfolio Spotlights ── -->
+        <div class="portfolio-section">
+          <p class="section-eyebrow">Portfolio Spotlights</p>
+          <h3>Accelerating Disruptive Agentic AI Ventures</h3>
+          <p>
+            Kahala Labs representatives embed directly with portfolio companies
+            to shape product strategy, architect go-to-market motions, and drive
+            user adoption from first users to enterprise scale.
+          </p>
+
+          <div class="portfolio-grid">
+            <!-- Startup A: Autonomous AppSec -->
+            <div class="portfolio-card">
+              <div class="portfolio-card-header">
+                <div class="pc-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4>Autonomous Application Security Platform</h4>
+                  <p class="pc-tag">
+                    Agentic AI &middot; AppSec &middot; DevSecOps
+                  </p>
+                </div>
+              </div>
+              <div class="portfolio-card-body">
+                <p>
+                  A multi-agent security platform that autonomously discovers,
+                  tests, and remediates access-control vulnerabilities in
+                  AI-built applications. A vision agent maps every workflow,
+                  endpoint, and role; a security agent executes thousands of
+                  attack simulations across tenants and permission boundaries;
+                  and a fix agent generates verified patches through popular
+                  code agents — all from a single URL input with zero
+                  configuration.
+                </p>
+
+                <p class="portfolio-role-label">Venture Partner Role</p>
+                <div class="portfolio-roles">
+                  <div class="portfolio-role">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4.5 12.75l6 6 9-13.5"
+                      />
+                    </svg>
+                    <span
+                      ><strong>Product Strategy</strong> — Guided core
+                      architecture decisions and user experience design to
+                      establish category leadership in autonomous application
+                      security</span
+                    >
+                  </div>
+                  <div class="portfolio-role">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4.5 12.75l6 6 9-13.5"
+                      />
+                    </svg>
+                    <span
+                      ><strong>Go-to-Market</strong> — Defined market
+                      positioning and competitive differentiation to capture a
+                      whitespace opportunity between legacy security tooling and
+                      the AI-native development wave</span
+                    >
+                  </div>
+                  <div class="portfolio-role">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4.5 12.75l6 6 9-13.5"
+                      />
+                    </svg>
+                    <span
+                      ><strong>Adoption &amp; Scale</strong> — Engineered the
+                      product-led growth motion that accelerated enterprise and
+                      startup adoption through frictionless onboarding and rapid
+                      time-to-value</span
+                    >
+                  </div>
+                </div>
+
+                <div class="portfolio-tech-tags">
+                  <span>Multi-Agent Architecture</span>
+                  <span>Autonomous Pentesting</span>
+                  <span>Access Control Analysis</span>
+                  <span>Multi-Tenant Isolation</span>
+                  <span>Auto-Remediation</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Startup B: AI Memory Infrastructure -->
+            <div class="portfolio-card">
+              <div class="portfolio-card-header">
+                <div class="pc-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4>Agentic AI Memory Infrastructure</h4>
+                  <p class="pc-tag">
+                    Memory Layer &middot; RAG &middot; Agent Orchestration
+                  </p>
+                </div>
+              </div>
+              <div class="portfolio-card-body">
+                <p>
+                  A self-hostable memory infrastructure platform that gives AI
+                  agents persistent, searchable memory that survives context
+                  windows. Connects knowledge bases, documents, and interaction
+                  history to LLM context — enabling RAG systems, personalized AI
+                  assistants, and complex multi-agent workflows with shared
+                  memory and coordination. Fully provider-agnostic, running
+                  across cloud, on-prem, and local hardware.
+                </p>
+
+                <p class="portfolio-role-label">Venture Partner Role</p>
+                <div class="portfolio-roles">
+                  <div class="portfolio-role">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4.5 12.75l6 6 9-13.5"
+                      />
+                    </svg>
+                    <span
+                      ><strong>Product Strategy</strong> — Shaped the platform
+                      architecture and vendor-agnostic deployment model to
+                      maximize enterprise appeal and eliminate lock-in
+                      concerns</span
+                    >
+                  </div>
+                  <div class="portfolio-role">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4.5 12.75l6 6 9-13.5"
+                      />
+                    </svg>
+                    <span
+                      ><strong>Go-to-Market</strong> — Positioned the platform
+                      as foundational infrastructure for the agentic AI stack,
+                      targeting developer teams building next-generation RAG and
+                      multi-agent systems</span
+                    >
+                  </div>
+                  <div class="portfolio-role">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4.5 12.75l6 6 9-13.5"
+                      />
+                    </svg>
+                    <span
+                      ><strong>Adoption &amp; Scale</strong> — Designed the
+                      developer-first growth strategy that drives organic
+                      adoption through low-friction onboarding and broad
+                      ecosystem compatibility</span
+                    >
+                  </div>
+                </div>
+
+                <div class="portfolio-tech-tags">
+                  <span>Persistent Agent Memory</span>
+                  <span>Semantic Search</span>
+                  <span>RAG Infrastructure</span>
+                  <span>Multi-Agent Coordination</span>
+                  <span>Provider Agnostic</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── AI Infrastructure Portfolio ── -->
+        <div class="ventures-infra">
+          <div class="ventures-infra-header">
+            <h3>AI Infrastructure Site Portfolio</h3>
+            <span class="badge">GPU-Dense &middot; AI Ready</span>
+          </div>
+
+          <div class="infra-overview">
+            <p>
+              Kahala Labs is actively deploying phased, GPU-dense AI-ready data
+              center infrastructure across high-growth markets in South and
+              Southeast Asia — partnering with cable companies manufacturing
+              fiber optic connectivity and industrial power suppliers for heavy
+              machinery and cooling equipment. All sites have confirmed zoning,
+              connectivity, and water availability.
+            </p>
+            <div class="market-data">
+              <strong>South &amp; Southeast Asia DC Markets:</strong>
+              Double-digit CAGR growth projected through 2030+, driven by
+              accelerating AI workloads, sovereign cloud mandates, and expanding
+              subsea connectivity. Contact our ventures team for detailed market
+              sizing and investment thesis.
+            </div>
+          </div>
+
+          <div class="site-cards">
+            <div class="site-card">
+              <h4>Site Alpha — South Asia</h4>
+              <p class="site-region">Solar Belt &middot; Subsea Cable Hub</p>
+              <ul>
+                <li><span class="label">IT Load</span> 100–200 MW (phased)</li>
+                <li><span class="label">Power</span> Solar + grid hybrid</li>
+                <li>
+                  <span class="label">Cooling</span> Liquid-cooled, high-density
+                  racks
+                </li>
+                <li>
+                  <span class="label">Status</span> Land, zoning &amp; utilities
+                  confirmed
+                </li>
+              </ul>
+              <div class="site-highlight">
+                Renewable energy equity — unique cost structure
+              </div>
+            </div>
+            <div class="site-card">
+              <h4>Site Beta — South Asia</h4>
+              <p class="site-region">Fiber Corridor &middot; Grid Power</p>
+              <ul>
+                <li><span class="label">IT Load</span> 100–200 MW (phased)</li>
+                <li><span class="label">Power</span> Grid + renewable PPAs</li>
+                <li>
+                  <span class="label">Cooling</span> Liquid-cooled, high-density
+                  racks
+                </li>
+                <li>
+                  <span class="label">Status</span> Connectivity &amp;
+                  infrastructure confirmed
+                </li>
+              </ul>
+              <div class="site-highlight">
+                Direct subsea cable access + regional policy incentives
+              </div>
+            </div>
+            <div class="site-card">
+              <h4>Site Gamma — Southeast Asia</h4>
+              <p class="site-region">
+                ASEAN Hub &middot; Multi-Country Gateway
+              </p>
+              <ul>
+                <li>
+                  <span class="label">IT Load</span> 100–200+ MW (scalable)
+                </li>
+                <li>
+                  <span class="label">Power</span> National grid + renewable
+                  PPAs
+                </li>
+                <li>
+                  <span class="label">Cooling</span> Liquid-cooled, high-density
+                  racks
+                </li>
+                <li>
+                  <span class="label">Status</span> Pre-development, incentives
+                  eligible
+                </li>
+              </ul>
+              <div class="site-highlight">
+                ASEAN gateway — low latency across the region
+              </div>
+            </div>
+          </div>
+
+          <div class="infra-cta-bar">
+            <p>
+              For detailed site specifications, capacity metrics, and
+              partnership opportunities, contact our ventures team.
+            </p>
+            <a href="mailto:ventures@kahalalabs.com" class="impact-cta">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                />
+              </svg>
+              ventures@kahalalabs.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────── Consulting ────── -->
+    <section class="section" id="consulting">
+      <div class="container fade-up">
+        <p class="section-eyebrow">Consulting</p>
+        <h2 class="section-title">
+          Architect and Secure Enterprise AI Systems
+        </h2>
+        <p class="section-subtitle">
+          Kahala Labs provides strategic consulting to help enterprises design,
+          validate, and deploy AI systems that are secure by design and built to
+          scale.
+        </p>
+        <div class="steps">
+          <div class="step">
+            <h3>Align AI Strategy</h3>
+            <p>
+              We start by understanding your business objectives and mapping
+              them to an AI strategy that delivers measurable outcomes —
+              ensuring every initiative is grounded in real value.
+            </p>
+          </div>
+          <div class="step">
+            <h3>Validate with a Secure MVP</h3>
+            <p>
+              Before committing to full-scale deployment, we build a
+              secure-by-design MVP that validates ROI assumptions, stress-tests
+              architecture, and de-risks the path forward.
+            </p>
+          </div>
+          <div class="step">
+            <h3>Deploy Hardened Solutions</h3>
+            <p>
+              We engineer and deploy production-grade AI systems — hardened for
+              security, optimized for performance, and architected to scale with
+              your enterprise.
+            </p>
+          </div>
+        </div>
+
+        <div class="research-impact" style="margin-top: 3rem">
+          <div class="research-impact-text">
+            <h3>Ready to Secure Your AI Strategy?</h3>
+            <p>
+              For detailed engagement models, case studies, and scoping
+              conversations, reach out to our consulting team.
+            </p>
+          </div>
+          <a href="mailto:consulting@kahalalabs.com" class="impact-cta">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+              />
+            </svg>
+            consulting@kahalalabs.com
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────── Global Presence ────── -->
+    <section class="global-presence">
+      <div class="global-inner fade-up">
+        <div class="global-header">
+          <p class="section-eyebrow">Global Presence</p>
+          <h2>Global Reach. Local Depth. Lasting Value.</h2>
+          <p>
+            Kahala Labs operates across North America, the Middle East, and
+            South Asia — delivering research, venture, and consulting
+            capabilities wherever innovation happens.
+          </p>
+        </div>
+
+        <div class="locations-grid">
+          <div class="location-card">
+            <div class="location-flag">&#127482;&#127480;</div>
+            <h3>United States</h3>
+            <p class="location-region">Americas Headquarters</p>
+            <hr class="location-divider" />
+            <address class="location-address">
+              San Francisco Bay Area<br />
+              Heart of Silicon Valley, CA 95070
+            </address>
+          </div>
+
+          <div class="location-card">
+            <div class="location-flag">&#127462;&#127466;</div>
+            <h3>United Arab Emirates</h3>
+            <p class="location-region">Middle East &amp; Africa</p>
+            <hr class="location-divider" />
+            <address class="location-address">
+              Starz by Danube, Jebel Ali Village<br />
+              Al Furjan, Dubai, UAE
+            </address>
+          </div>
+
+          <div class="location-card">
+            <div class="location-flag">&#127470;&#127475;</div>
+            <h3>India</h3>
+            <p class="location-region">South Asia &amp; APAC</p>
+            <hr class="location-divider" />
+            <address class="location-address">
+              Prashasan Nagar, Jubilee Hills<br />
+              Hyderabad, Telangana 500110
+            </address>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────── Footer ────── -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="/kahalaLabsLogo.png" alt="Kahala Labs" />
+        </div>
+        <ul class="footer-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#ventures">Ventures</a></li>
+          <li><a href="#consulting">Consulting</a></li>
+        </ul>
+        <p class="footer-copy">&copy; 2026 Kahala Labs. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- ────── Scripts ────── -->
+    <script>
+      // Navbar scroll effect
+      const nav = document.getElementById("nav");
+      window.addEventListener("scroll", () => {
+        nav.classList.toggle("scrolled", window.scrollY > 40);
+      });
+
+      // Mobile toggle
+      const toggle = document.getElementById("navToggle");
+      const links = document.getElementById("navLinks");
+      toggle.addEventListener("click", () => {
+        links.classList.toggle("open");
+      });
+
+      // Close mobile menu on link click
+      const navAnchors = links.querySelectorAll("a");
+      navAnchors.forEach((a) => {
+        a.addEventListener("click", () => links.classList.remove("open"));
+      });
+
+      // Scroll-spy: activate nav tab and sync URL hash
+      function setActiveNav(id) {
+        navAnchors.forEach((a) => {
+          a.classList.toggle("active", a.getAttribute("href") === "#" + id);
+        });
+        history.replaceState(null, "", "#" + id);
+      }
+
+      const sectionIds = ["about", "research", "ventures", "consulting"];
+      const sectionEls = sectionIds.map((id) => document.getElementById(id));
+
+      const scrollSpy = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) setActiveNav(entry.target.id);
+          });
+        },
+        { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
+      );
+
+      sectionEls.forEach((el) => el && scrollSpy.observe(el));
+
+      // Intersection Observer for fade-in
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+
+      document
+        .querySelectorAll(".fade-up")
+        .forEach((el) => observer.observe(el));
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
