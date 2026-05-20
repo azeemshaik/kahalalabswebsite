@@ -735,6 +735,128 @@
         letter-spacing: 0.06em;
       }
 
+      /* ── Ventures Brokerage Banner ────────────────── */
+      .ventures-brokerage {
+        margin-top: 3rem;
+        background: linear-gradient(135deg, #1a2744, #2a3a5c);
+        border-radius: 12px;
+        padding: 3rem;
+        color: var(--white);
+      }
+      .brokerage-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .brokerage-header h3 {
+        font-family: var(--font-heading);
+        font-size: 1.4rem;
+        font-weight: 600;
+      }
+      .brokerage-header .badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 0.35rem 1rem;
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        border-radius: 100px;
+      }
+      .brokerage-intro {
+        font-size: 0.95rem;
+        color: var(--silver);
+        line-height: 1.8;
+        margin-bottom: 2.5rem;
+        max-width: 800px;
+      }
+      .brokerage-pillars {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+      }
+      .brokerage-pillar {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 2rem 1.75rem;
+        transition: background 0.3s;
+      }
+      .brokerage-pillar:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .brokerage-pillar h4 {
+        font-family: var(--font-heading);
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--white);
+        margin-bottom: 0.35rem;
+      }
+      .brokerage-pillar .pillar-tag {
+        font-size: 0.75rem;
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 1rem;
+      }
+      .brokerage-pillar p {
+        font-size: 0.88rem;
+        color: var(--silver);
+        line-height: 1.75;
+      }
+      .brokerage-pillar .pillar-highlight {
+        margin-top: 1rem;
+        padding: 0.5rem 0.75rem;
+        background: rgba(201, 168, 76, 0.12);
+        border-left: 3px solid var(--gold);
+        border-radius: 4px;
+        font-size: 0.8rem;
+        color: var(--gold);
+        font-weight: 500;
+      }
+      .brokerage-value {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 2.5rem;
+      }
+      .brokerage-value-item {
+        text-align: center;
+      }
+      .brokerage-value-item h5 {
+        font-family: var(--font-heading);
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--gold);
+        margin-bottom: 0.4rem;
+      }
+      .brokerage-value-item p {
+        font-size: 0.82rem;
+        color: var(--mist);
+        line-height: 1.6;
+      }
+
+      /* Mobile responsiveness for brokerage */
+      @media (max-width: 768px) {
+        .ventures-brokerage {
+          padding: 2rem 1.25rem;
+        }
+        .brokerage-pillars {
+          grid-template-columns: 1fr;
+        }
+        .brokerage-value {
+          grid-template-columns: 1fr;
+        }
+      }
+
       @media (max-width: 768px) {
         .ventures-infra {
           padding: 2rem 1.25rem;
@@ -2194,6 +2316,106 @@
             <p>
               For detailed site specifications, capacity metrics, and
               partnership opportunities, contact our ventures team.
+            </p>
+            <a href="mailto:ventures@kahalalabs.com" class="impact-cta">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                />
+              </svg>
+              ventures@kahalalabs.com
+            </a>
+          </div>
+        </div>
+
+        <!-- ── Data Center Infrastructure Brokerage ── -->
+        <div class="ventures-brokerage">
+          <div class="brokerage-header">
+            <h3>Data Center Infrastructure Brokerage</h3>
+            <span class="badge">Optical Fiber &middot; Power Cable</span>
+          </div>
+
+          <p class="brokerage-intro">
+            Kahala Labs operates an asset-light brokerage connecting world-class
+            cable manufacturers with the surging US data center market. As
+            hyperscale and enterprise facilities race to expand, securing
+            reliable supply of critical physical-layer infrastructure — fiber
+            optic cabling and industrial power distribution — has become a
+            strategic bottleneck. Kahala Labs bridges that gap.
+          </p>
+
+          <div class="brokerage-pillars">
+            <div class="brokerage-pillar">
+              <h4>Optical Fiber Cable</h4>
+              <p class="pillar-tag">High-Count Single-Mode Ribbon Fiber</p>
+              <p>
+                We represent leading global manufacturers of high-count
+                single-mode ribbon fiber cable, serving data center contractors
+                and operators who need schedule certainty at scale. Our
+                vertically integrated sourcing model provides a single
+                accountable field team covering specification, logistics, and
+                on-site support — eliminating multi-vendor coordination risk.
+              </p>
+              <div class="pillar-highlight">
+                Schedule certainty + vertically integrated source + single
+                accountable field team
+              </div>
+            </div>
+            <div class="brokerage-pillar">
+              <h4>Industrial Power Cable</h4>
+              <p class="pillar-tag">
+                High-Voltage &middot; Fire-Survival Rated
+              </p>
+              <p>
+                Kahala Labs brokers high-voltage power cable and fire-survival
+                cable solutions from specialized international manufacturers,
+                addressing the heavy electrical infrastructure demands of modern
+                data center campuses. We facilitate market entry, UL
+                certification pathways, and distribution partnerships for
+                manufacturers seeking US market access.
+              </p>
+              <div class="pillar-highlight">
+                Full compliance pathway + market entry support + distribution
+                partnerships
+              </div>
+            </div>
+          </div>
+
+          <div class="brokerage-value">
+            <div class="brokerage-value-item">
+              <h5>Diversified Supply</h5>
+              <p>
+                Global sourcing across multiple manufacturers eliminates
+                single-supplier risk
+              </p>
+            </div>
+            <div class="brokerage-value-item">
+              <h5>Full Physical-Layer Coverage</h5>
+              <p>
+                Fiber to power — one partner for the complete cable
+                infrastructure stack
+              </p>
+            </div>
+            <div class="brokerage-value-item">
+              <h5>Single Point of Accountability</h5>
+              <p>
+                Reducing procurement complexity for contractors building the
+                backbone of the AI era
+              </p>
+            </div>
+          </div>
+
+          <div class="infra-cta-bar">
+            <p>
+              For partnership and supply inquiries, contact our ventures team.
             </p>
             <a href="mailto:ventures@kahalalabs.com" class="impact-cta">
               <svg
