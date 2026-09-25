@@ -1,0 +1,2565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kahala Labs — Fiber Optic Procurement for AI Data Centers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:    #0f1a2e;
+      --slate:   #1e2d47;
+      --steel:   #3a4f6f;
+      --mist:    #8b9bb5;
+      --silver:  #c5cdd9;
+      --cloud:   #e9edf3;
+      --white:   #ffffff;
+      --accent:  #2a6fdb;
+      --accent-light: #4a8fee;
+      --gold:    #c9a84c;
+      --teal:    #0d9488;
+      --teal-light: #14b8a6;
+      --danger:  #dc2626;
+      --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Playfair Display', Georgia, serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--navy);
+      background: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Navigation ───────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(15,26,46,0.97);
+      backdrop-filter: blur(12px);
+      transition: box-shadow 0.3s ease;
+    }
+    .nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .logo img {
+      height: 40px;
+      width: auto;
+      filter: brightness(1.3) contrast(0.95);
+    }
+    .logo-fiber {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-left: 1px solid var(--steel);
+      padding-left: 0.75rem;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--silver);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.3rem;
+      background: var(--gold);
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      border-radius: 6px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .nav-cta:hover { background: #d4b35a; transform: translateY(-1px); }
+
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+    .nav-toggle span {
+      display: block; width: 24px; height: 2px;
+      background: var(--silver); margin: 5px 0;
+      transition: all 0.3s;
+    }
+
+    /* ── Hero ─────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 2rem 5rem;
+      background: linear-gradient(160deg, var(--navy) 0%, #152238 40%, var(--slate) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%; right: -15%;
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(42,111,219,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -20%; left: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      padding: 0.45rem 1rem;
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 100px;
+      background: rgba(201,168,76,0.08);
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.12;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--silver);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: var(--gold);
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #d4b35a; transform: translateY(-2px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 6px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .hero-stat {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.75rem;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .hero-stat:hover { background: rgba(255,255,255,0.07); }
+
+    .hero-stat h3 {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.25rem;
+    }
+    .hero-stat p {
+      font-size: 0.78rem;
+      color: var(--mist);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0;
+    }
+
+    /* ── Sections (shared) ────────────────────────── */
+    .section { padding: 6rem 2rem; }
+    .section-dark { background: linear-gradient(160deg, var(--navy), var(--slate)); color: var(--white); }
+    .section-alt { background: var(--cloud); }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section-dark .section-eyebrow { color: var(--gold); }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .section-dark .section-title { color: var(--white); }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--steel);
+      max-width: 640px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+    .section-dark .section-subtitle { color: var(--silver); }
+
+    /* ── Problem / Supply Gap ─────────────────────── */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .problem-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .problem-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--danger);
+    }
+
+    .problem-icon {
+      width: 48px; height: 48px;
+      background: rgba(220,38,38,0.12);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .problem-icon svg { width: 22px; height: 22px; color: #ef4444; }
+
+    .problem-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .problem-card p {
+      font-size: 0.9rem;
+      color: var(--silver);
+      line-height: 1.7;
+    }
+    .problem-card .stat-highlight {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(220,38,38,0.15);
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #fca5a5;
+    }
+
+    .problem-summary {
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .problem-summary svg { width: 28px; height: 28px; color: var(--gold); flex-shrink: 0; }
+    .problem-summary p {
+      font-size: 1.05rem;
+      color: var(--silver);
+      line-height: 1.7;
+    }
+    .problem-summary strong { color: var(--gold); }
+
+    /* ── Supply Chain ─────────────────────────────── */
+    /* ── Supply Chain Comparison ── */
+    .sc-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .sc-col {
+      border-radius: 14px;
+      padding: 2rem 1.75rem;
+    }
+    .sc-col--incumbent {
+      background: var(--white);
+      border: 1px solid var(--cloud);
+    }
+    .sc-col--kahala {
+      background: linear-gradient(135deg, rgba(13,148,136,0.06), rgba(201,168,76,0.06));
+      border: 2px solid var(--teal);
+      position: relative;
+    }
+    .sc-col--kahala::before {
+      content: 'RECOMMENDED';
+      position: absolute;
+      top: -11px;
+      left: 1.75rem;
+      background: var(--teal);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 3px 12px;
+      border-radius: 100px;
+    }
+    .sc-col-title {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .sc-col--incumbent .sc-col-title { color: var(--steel); }
+    .sc-col--kahala .sc-col-title { color: var(--navy); }
+    .sc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .sc-row:last-child { border-bottom: none; }
+    .sc-label {
+      font-size: 0.82rem;
+      color: var(--steel);
+    }
+    .sc-value {
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-align: right;
+    }
+    .sc-col--incumbent .sc-value { color: #b45309; }
+    .sc-col--kahala .sc-value { color: var(--teal); }
+
+    /* ── Process Bar ── */
+    .sc-process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .sc-process::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: calc(12.5% + 16px);
+      right: calc(12.5% + 16px);
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+      z-index: 0;
+    }
+    .sc-stage {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .sc-stage-dot {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .sc-stage h4 {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+    }
+    .sc-stage p {
+      font-size: 0.78rem;
+      color: var(--steel);
+      line-height: 1.5;
+      max-width: 180px;
+      margin: 0 auto;
+    }
+
+    .sc-traceability {
+      margin-top: 2rem;
+      padding: 1.5rem 2rem;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .sc-traceability strong {
+      font-size: 0.88rem;
+      color: var(--navy);
+    }
+    .sc-traceability p {
+      font-size: 0.82rem;
+      color: var(--steel);
+      margin-top: 0.25rem;
+      line-height: 1.55;
+    }
+
+    /* ── Manufacturer Network ────────────────────── */
+    .net-headline {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+    }
+    .net-headline h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+    .net-headline h3 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .net-headline p {
+      font-size: 0.88rem;
+      color: var(--silver);
+      line-height: 1.65;
+    }
+    .net-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-bottom: 3rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .net-stat {
+      text-align: center;
+      padding: 1.75rem 1rem;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+    .net-stat:last-child { border-right: none; }
+    .net-stat:nth-child(even) { background: rgba(255,255,255,0.04); }
+    .net-stat-num {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .net-stat:nth-child(1) .net-stat-num { color: var(--white); }
+    .net-stat:nth-child(2) .net-stat-num { color: var(--gold); }
+    .net-stat:nth-child(3) .net-stat-num { color: var(--teal); }
+    .net-stat:nth-child(4) .net-stat-num { color: var(--white); }
+    .net-stat-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+
+    .net-pipeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .net-pipeline::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(12.5% + 20px);
+      right: calc(12.5% + 20px);
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.08), var(--teal), var(--gold));
+    }
+    .net-pipe-stage {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .net-pipe-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.85rem;
+    }
+    .net-pipe-stage:nth-child(1) .net-pipe-icon { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); }
+    .net-pipe-stage:nth-child(2) .net-pipe-icon { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); }
+    .net-pipe-stage:nth-child(3) .net-pipe-icon { background: rgba(13,148,136,0.12); border: 1px solid rgba(13,148,136,0.25); }
+    .net-pipe-stage:nth-child(4) .net-pipe-icon { background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); }
+    .net-pipe-icon svg { width: 24px; height: 24px; }
+    .net-pipe-stage:nth-child(1) .net-pipe-icon svg { color: var(--mist); }
+    .net-pipe-stage:nth-child(2) .net-pipe-icon svg { color: var(--silver); }
+    .net-pipe-stage:nth-child(3) .net-pipe-icon svg { color: var(--teal); }
+    .net-pipe-stage:nth-child(4) .net-pipe-icon svg { color: var(--gold); }
+    .net-pipe-stage h4 {
+      font-family: var(--font-heading);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .net-pipe-stage p {
+      font-size: 0.76rem;
+      color: var(--mist);
+      line-height: 1.5;
+      max-width: 180px;
+      margin: 0 auto;
+    }
+
+    .net-regions {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .net-region {
+      padding: 0.55rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .net-region--active {
+      background: rgba(13,148,136,0.1);
+      border: 1px solid rgba(13,148,136,0.25);
+      color: #5eead4;
+    }
+    .net-region--eval {
+      background: rgba(201,168,76,0.08);
+      border: 1px dashed rgba(201,168,76,0.25);
+      color: var(--gold);
+    }
+    .net-region-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    .net-region--active .net-region-dot { background: var(--teal); }
+    .net-region--eval .net-region-dot { background: var(--gold); }
+
+    .net-footer {
+      padding: 1.25rem 1.75rem;
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 10px;
+      text-align: center;
+    }
+    .net-footer p {
+      font-size: 0.82rem;
+      color: var(--silver);
+      line-height: 1.6;
+    }
+    .net-footer em { color: var(--mist); }
+
+    @media (max-width: 768px) {
+      .net-stats { grid-template-columns: repeat(2, 1fr); }
+      .net-stat { border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .net-pipeline { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+      .net-pipeline::before { display: none; }
+    }
+
+    /* ── Products ─────────────────────────────────── */
+    .prod-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: linear-gradient(135deg, var(--navy) 0%, #1a2744 100%);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .prod-hero-left {
+      padding: 2.5rem 2.5rem 2.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .prod-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .prod-hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .prod-hero-name {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .prod-hero-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+    .prod-hero-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .prod-hero-spec {
+      padding: 0.35rem 0.75rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.85);
+    }
+    .prod-hero-spec strong { color: var(--white); font-weight: 600; }
+    .prod-hero-right {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .prod-hero-number {
+      font-family: var(--font-heading);
+      font-size: 4.5rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .prod-hero-number span {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--gold);
+      display: block;
+      margin-top: 0.25rem;
+      letter-spacing: 0.05em;
+    }
+    .prod-hero-callout {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+
+    .prod-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .prod-item {
+      background: var(--white);
+      border: 1px solid var(--cloud);
+      border-radius: 14px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      transition: box-shadow 0.3s;
+    }
+    .prod-item:hover {
+      box-shadow: 0 8px 30px rgba(15,26,46,0.08);
+    }
+    .prod-item-accent {
+      width: 40px;
+      height: 4px;
+      border-radius: 2px;
+      margin-bottom: 1.25rem;
+    }
+    .prod-item:nth-child(1) .prod-item-accent { background: var(--teal); }
+    .prod-item:nth-child(2) .prod-item-accent { background: var(--gold); }
+    .prod-item:nth-child(3) .prod-item-accent { background: var(--accent); }
+    .prod-item h3 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.35rem;
+    }
+    .prod-item-range {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: 0.03em;
+      margin-bottom: 1rem;
+    }
+    .prod-item p {
+      font-size: 0.85rem;
+      color: var(--steel);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+    .prod-item-details {
+      list-style: none;
+    }
+    .prod-item-details li {
+      font-size: 0.8rem;
+      color: var(--steel);
+      padding: 0.3rem 0;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .prod-item-details li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.7rem;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--cloud);
+    }
+    .prod-item-details li strong {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* ── Factory Tour Gallery ─────────────────────── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(transparent, rgba(15,26,46,0.9));
+    }
+    .gallery-caption h4 {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .gallery-caption p {
+      font-size: 0.8rem;
+      color: var(--silver);
+    }
+
+    /* ── Certifications ───────────────────────────── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+
+    .cert-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .cert-card:hover { background: rgba(255,255,255,0.07); }
+
+    .cert-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.35rem;
+    }
+    .cert-card p {
+      font-size: 0.78rem;
+      color: var(--silver);
+      line-height: 1.5;
+    }
+
+    .quality-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 2.5rem;
+    }
+
+    .q-stat { text-align: center; }
+    .q-stat h3 {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.25rem;
+    }
+    .q-stat p {
+      font-size: 0.78rem;
+      color: var(--mist);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .quality-proof {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .proof-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    .proof-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .proof-card h4 svg { width: 18px; height: 18px; color: var(--teal-light); }
+    .proof-card p {
+      font-size: 0.88rem;
+      color: var(--silver);
+      line-height: 1.7;
+    }
+
+    /* ── Markets ──────────────────────────────────── */
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .market-card {
+      background: var(--white);
+      border: 1px solid var(--cloud);
+      border-radius: 12px;
+      padding: 2rem 1.75rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .market-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(15,26,46,0.08);
+    }
+    .market-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .market-card:nth-child(1)::before { background: #ef4444; }
+    .market-card:nth-child(2)::before { background: var(--accent); }
+    .market-card:nth-child(3)::before { background: var(--teal); }
+    .market-card:nth-child(4)::before { background: var(--gold); }
+
+    .market-icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .market-card:nth-child(1) .market-icon { background: rgba(239,68,68,0.08); }
+    .market-card:nth-child(1) .market-icon svg { color: #ef4444; }
+    .market-card:nth-child(2) .market-icon { background: rgba(42,111,219,0.08); }
+    .market-card:nth-child(2) .market-icon svg { color: var(--accent); }
+    .market-card:nth-child(3) .market-icon { background: rgba(13,148,136,0.08); }
+    .market-card:nth-child(3) .market-icon svg { color: var(--teal); }
+    .market-card:nth-child(4) .market-icon { background: rgba(201,168,76,0.12); }
+    .market-card:nth-child(4) .market-icon svg { color: var(--gold); }
+    .market-icon svg { width: 22px; height: 22px; }
+
+    .market-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .market-card p {
+      font-size: 0.88rem;
+      color: var(--steel);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .market-stat {
+      display: inline-block;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .market-stat-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .market-examples {
+      font-size: 0.8rem;
+      color: var(--mist);
+      font-style: italic;
+    }
+
+    /* ── Trust Strip (below hero) ────────────────── */
+    .trust-strip {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      padding: 1.5rem 2rem;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--slate);
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+    .trust-item svg { width: 16px; height: 16px; color: var(--gold); }
+
+    /* ── How It Works ────────────────────────────── */
+    .how-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      margin-top: 2rem;
+      counter-reset: step;
+      position: relative;
+    }
+    .how-step {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+    }
+    .how-step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .how-step h3 {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.35rem;
+    }
+    .how-step p {
+      font-size: 0.82rem;
+      color: var(--steel);
+      line-height: 1.55;
+    }
+    .how-connector {
+      position: absolute;
+      top: 2.85rem;
+      right: -12px;
+      color: var(--gold);
+      font-size: 1.1rem;
+      z-index: 1;
+    }
+    @media (max-width: 768px) {
+      .how-steps { grid-template-columns: 1fr; }
+      .how-connector { display: none; }
+    }
+
+    /* ── Why Kahala Labs ──────────────────────────── */
+    .why-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    .why-narrative h3 {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.35;
+      margin-bottom: 1rem;
+    }
+    .why-narrative h3 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+    .why-narrative p {
+      font-size: 0.9rem;
+      color: var(--steel);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .why-narrative blockquote {
+      margin: 1.5rem 0 0 0;
+      padding: 1rem 1.25rem;
+      border-left: 3px solid var(--gold);
+      background: rgba(201,168,76,0.06);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.85rem;
+      color: var(--navy);
+      font-weight: 500;
+      line-height: 1.6;
+    }
+    .why-model {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .why-tier {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-left: 3px solid transparent;
+      position: relative;
+    }
+    .why-tier:nth-child(1) { border-left-color: var(--steel); }
+    .why-tier:nth-child(2) { border-left-color: var(--steel); }
+    .why-tier:nth-child(3) { border-left-color: var(--steel); }
+    .why-funnel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 0;
+    }
+    .why-funnel svg { width: 24px; height: 24px; color: var(--gold); }
+    .why-hub {
+      background: linear-gradient(135deg, var(--navy), #1a2744);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .why-hub-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(201,168,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .why-hub-icon svg { width: 22px; height: 22px; color: var(--gold); }
+    .why-hub-text h4 {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.15rem;
+    }
+    .why-hub-text p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.4;
+    }
+    .why-tier-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .why-tier:nth-child(1) .why-tier-icon { background: rgba(13,148,136,0.1); color: var(--teal); }
+    .why-tier:nth-child(2) .why-tier-icon { background: rgba(201,168,76,0.1); color: var(--gold); }
+    .why-tier:nth-child(3) .why-tier-icon { background: rgba(99,102,241,0.1); color: var(--accent); }
+    .why-tier-icon svg { width: 18px; height: 18px; }
+    .why-tier-text h4 {
+      font-family: var(--font-heading);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.1rem;
+    }
+    .why-tier-text p {
+      font-size: 0.78rem;
+      color: var(--steel);
+      line-height: 1.45;
+    }
+    .why-outcomes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    .why-outcome {
+      text-align: center;
+      padding: 1.25rem 1rem;
+      background: var(--white);
+      border: 1px solid var(--cloud);
+      border-radius: 10px;
+    }
+    .why-outcome-num {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .why-outcome p {
+      font-size: 0.78rem;
+      color: var(--steel);
+      line-height: 1.45;
+    }
+    @media (max-width: 768px) {
+      .why-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .why-outcomes { grid-template-columns: 1fr; }
+    }
+
+    /* ── Resources Section ────────────────────────── */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .resource-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem 1.25rem;
+      background: var(--navy);
+      border: 1px solid var(--slate);
+      border-radius: 12px;
+      text-decoration: none;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+    .resource-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+    .resource-card .rc-icon {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      background: rgba(201,168,76,0.1);
+    }
+    .resource-card .rc-icon svg { width: 22px; height: 22px; color: var(--gold); }
+    .resource-card h3 { font-size: 0.95rem; color: var(--white); margin-bottom: 0.4rem; }
+    .resource-card p { font-size: 0.82rem; color: var(--silver); line-height: 1.55; }
+    @media (max-width: 768px) {
+      .resources-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .resources-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── CTA Section ──────────────────────────────── */
+    .cta-section {
+      padding: 6rem 2rem;
+      background: linear-gradient(160deg, var(--navy), #152238, var(--slate));
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -30%; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 60%);
+      border-radius: 50%;
+    }
+
+    .cta-content {
+      max-width: 650px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-content h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .cta-content p {
+      font-size: 1.05rem;
+      color: var(--silver);
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-details {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .cta-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      color: var(--mist);
+    }
+    .cta-detail svg { width: 16px; height: 16px; color: var(--gold); }
+
+    /* ── Quote Form ──────────────────────────────── */
+    .quote-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 2rem;
+      text-align: left;
+    }
+    .quote-field { display: flex; flex-direction: column; gap: 0.35rem; }
+    .quote-field.full-width { grid-column: 1 / -1; }
+    .quote-field label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.01em;
+    }
+    .quote-field label .req { color: var(--gold); margin-left: 0.15rem; }
+    .quote-field input,
+    .quote-field select {
+      padding: 0.7rem 0.85rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .quote-field input::placeholder { color: var(--mist); }
+    .quote-field input:focus,
+    .quote-field select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .quote-field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7A8D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.85rem center;
+      padding-right: 2.2rem;
+    }
+    .quote-field select option { background: var(--navy); color: var(--white); }
+    .quote-field .field-error {
+      font-size: 0.72rem;
+      color: #ef4444;
+      min-height: 1rem;
+      display: none;
+    }
+    .quote-field.has-error input,
+    .quote-field.has-error select { border-color: #ef4444; }
+    .quote-field.has-error .field-error { display: block; }
+    .quote-submit-row {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+    }
+    .quote-submit {
+      padding: 0.75rem 2rem;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .quote-submit:hover { background: #d4b35a; transform: translateY(-1px); }
+    .quote-promise {
+      font-size: 0.75rem;
+      color: var(--mist);
+    }
+    .quote-success {
+      display: none;
+      text-align: center;
+      padding: 2.5rem 1rem;
+    }
+    .quote-success.active { display: block; }
+    .quote-success h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .quote-success p {
+      font-size: 0.88rem;
+      color: var(--silver);
+    }
+    .quote-success .check-circle {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(13,148,136,0.15);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .quote-success .check-circle svg { width: 28px; height: 28px; color: var(--teal); }
+    @media (max-width: 768px) {
+      .quote-form-grid { grid-template-columns: 1fr; }
+      .quote-submit-row { flex-direction: column; align-items: stretch; text-align: center; }
+    }
+
+    /* ── Footer ───────────────────────────────────── */
+    .footer {
+      background: var(--navy);
+      color: var(--mist);
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--slate);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .footer-left img {
+      height: 32px;
+      width: auto;
+      filter: brightness(1.3) contrast(0.9);
+    }
+
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a {
+      color: var(--mist);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--steel);
+      width: 100%;
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--slate);
+    }
+
+    /* ── Responsive ───────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .sc-comparison { grid-template-columns: 1fr; }
+      .sc-process { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+      .sc-process::before { display: none; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .quality-stats { grid-template-columns: 1fr 1fr; }
+      .quality-proof { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: 1fr 1fr; }
+      #partners .container > div { grid-template-columns: 1fr !important; }
+      .prod-hero { grid-template-columns: 1fr; }
+      .prod-hero-left { padding: 2rem 1.5rem; }
+      .prod-hero-right { padding: 1.5rem; }
+      .prod-hero-number { font-size: 3rem; }
+      .prod-row { grid-template-columns: 1fr; }
+      .section { padding: 4rem 1.5rem; }
+
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px; left: 0; right: 0;
+        background: var(--navy);
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--slate);
+        gap: 1rem;
+      }
+
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+      .problem-summary { flex-direction: column; text-align: center; }
+      .cta-details { gap: 1.5rem; }
+    }
+
+    /* ── Fade-in animation ────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ────── Navigation ────── -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="kahala-labs.html" class="logo" title="Back to Kahala Labs">
+        <img src="kahala-labs-logo-3d.png" alt="Kahala Labs">
+        <span class="logo-fiber">Fiber Infrastructure</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#why-kahala">Why Us</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#supply-chain">Supply Chain</a></li>
+        <li><a href="#partners">Partners</a></li>
+        <li><a href="#markets">Who We Serve</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ────── Hero ────── -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="fade-up">
+        <span class="hero-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+          Factory-Verified Fiber Procurement
+        </span>
+        <h1>High-count fiber in 8&ndash;12 weeks&mdash;<em>not 12+ months.</em></h1>
+        <p>Source 144- to 6,912-count fiber optic cable from factory-verified global manufacturers. Kahala Labs matches your specifications, delivery window, and compliance needs to a qualified supply path&mdash;with end-to-end traceability.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">
+            Get Lead Time &amp; Quote
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+          <a href="#products" class="btn-secondary">View Product Portfolio</a>
+        </div>
+      </div>
+      <div class="hero-stats fade-up">
+        <div class="hero-stat">
+          <h3>6,912</h3>
+          <p>Max Fiber Count</p>
+        </div>
+        <div class="hero-stat">
+          <h3>8&ndash;12</h3>
+          <p>Week Lead Time</p>
+        </div>
+        <div class="hero-stat">
+          <h3>124</h3>
+          <p>QC Parameters</p>
+        </div>
+        <div class="hero-stat">
+          <h3>0%</h3>
+          <p>Tariff Exposure</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────── Trust Strip ────── -->
+  <div class="trust-strip">
+    <div class="trust-item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+      Telcordia GR-20
+    </div>
+    <div class="trust-item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+      ISO 9001 &middot; TL 9000
+    </div>
+    <div class="trust-item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+      UL Listed
+    </div>
+    <div class="trust-item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+      BEAD Compliant
+    </div>
+    <div class="trust-item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+      Zero Tariff
+    </div>
+  </div>
+
+  <!-- ────── How It Works ────── -->
+  <section class="section section-alt" id="how-it-works">
+    <div class="container fade-up">
+      <p class="section-eyebrow">How It Works</p>
+      <h2 class="section-title">From Spec to Delivery in Three Steps</h2>
+      <p class="section-subtitle">No RFP gauntlet. No 6-month procurement cycle. Tell us what you need and we handle the rest.</p>
+
+      <div class="how-steps">
+        <div class="how-step">
+          <h3>Share Your Specs</h3>
+          <p>Fiber count, cable type, compliance requirements, and target delivery window. Not sure yet? We&rsquo;ll help you scope it.</p>
+          <span class="how-connector">&rarr;</span>
+        </div>
+        <div class="how-step">
+          <h3>We Match &amp; Qualify</h3>
+          <p>Kahala Labs matches your requirements to a factory-verified supply path &mdash; optimized for cost, schedule, and compliance.</p>
+          <span class="how-connector">&rarr;</span>
+        </div>
+        <div class="how-step">
+          <h3>Confirmed Quote in 24hrs</h3>
+          <p>You receive a quote with confirmed lead times, full test data specs, and end-to-end traceability documentation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────── Why Kahala Labs ────── -->
+  <section class="section" id="why-kahala">
+    <div class="container fade-up">
+      <p class="section-eyebrow">The Kahala Labs Model</p>
+      <h2 class="section-title">We Aggregate. You Save.</h2>
+      <p class="section-subtitle">Individual buyers compete for scraps of factory capacity. Kahala Labs pools demand across data center operators, neoclouds, and telecoms &mdash; then routes it through pre-qualified manufacturers at volume pricing no single buyer can unlock alone.</p>
+
+      <div class="why-layout">
+        <div class="why-narrative">
+          <h3>Your demand alone won&rsquo;t move a factory.<br><em>Ours does.</em></h3>
+          <p>Most fiber buyers approach manufacturers one at a time, competing against hyperscaler commitments for whatever capacity is left. Lead times stretch. Pricing inflates. Leverage disappears.</p>
+          <p>Kahala Labs flips that dynamic. We consolidate purchase volume across our customer base, negotiate directly with factory leadership, and lock in capacity blocks at pricing tiers that require millions of fiber-kilometers of annual throughput. Every buyer in our network benefits from the collective scale.</p>
+          <blockquote>&ldquo;You get factory-direct quality and pricing without the factory-direct minimums.&rdquo;</blockquote>
+        </div>
+
+        <div class="why-model">
+          <div class="why-tier">
+            <div class="why-tier-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21"/></svg>
+            </div>
+            <div class="why-tier-text">
+              <h4>DC Operators &amp; Neoclouds</h4>
+              <p>Need high-count ribbon for AI cluster builds</p>
+            </div>
+          </div>
+          <div class="why-tier">
+            <div class="why-tier-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0z"/></svg>
+            </div>
+            <div class="why-tier-text">
+              <h4>Telecoms &amp; ISPs</h4>
+              <p>Need duct cable for BEAD and campus buildouts</p>
+            </div>
+          </div>
+          <div class="why-tier">
+            <div class="why-tier-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09zM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 0 0-2.455 2.456z"/></svg>
+            </div>
+            <div class="why-tier-text">
+              <h4>EPC &amp; General Contractors</h4>
+              <p>Need reliable cable supply on tight build schedules</p>
+            </div>
+          </div>
+
+          <div class="why-funnel">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"/></svg>
+          </div>
+
+          <div class="why-hub">
+            <div class="why-hub-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0 0 12 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 0 1-2.031.352 5.988 5.988 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 0 1-2.031.352 5.989 5.989 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z"/></svg>
+            </div>
+            <div class="why-hub-text">
+              <h4>Kahala Labs &mdash; Aggregated Volume</h4>
+              <p>Pooled demand → factory-level pricing → multi-supplier qualified network</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-outcomes">
+        <div class="why-outcome">
+          <div class="why-outcome-num">15&ndash;30%</div>
+          <p>Lower unit cost vs. going direct at your volume alone</p>
+        </div>
+        <div class="why-outcome">
+          <div class="why-outcome-num">0</div>
+          <p>Minimum order surprises &mdash; we&rsquo;ve already met them</p>
+        </div>
+        <div class="why-outcome">
+          <div class="why-outcome-num">2+</div>
+          <p>Qualified suppliers for every product line &mdash; zero single-vendor risk</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────── The Problem ────── -->
+  <section class="section section-dark resource-detail" id="problem" style="display:none;">
+    <div class="container fade-up">
+      <p class="section-eyebrow">The Problem</p>
+      <h2 class="section-title">The US Fiber Supply Chain Is Broken</h2>
+      <p class="section-subtitle">AI data center buildouts are consuming fiber at 36x the rate of traditional CPU racks. The two dominant US suppliers are locked into exclusive contracts, and the remaining import channels carry prohibitive tariffs or lead-time risk.</p>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25z"/></svg>
+          </div>
+          <h3>Incumbents Locked</h3>
+          <p>The two dominant US fiber manufacturers have committed $12B+ in exclusive multi-year contracts with major hyperscalers. Neither is taking new customers at competitive terms.</p>
+          <span class="stat-highlight">12+ month lead times</span>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+          </div>
+          <h3>Tariff &amp; Compliance Wall</h3>
+          <p>Section 301, AD/CVD, and country-of-origin tariffs on key import channels exceed 104%. BEAD Buy America requirements further narrow the field of compliant suppliers.</p>
+          <span class="stat-highlight">104%+ combined tariffs</span>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+          </div>
+          <h3>AI Demand Explosion</h3>
+          <p>A single NVL72 GPU rack requires 1,152 fibers at 800G. AI racks consume 36x more fiber than traditional CPU racks. Every new cluster means thousands of kilometers of cable.</p>
+          <span class="stat-highlight">36x more fiber per rack</span>
+        </div>
+      </div>
+
+      <div class="problem-summary">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
+        <p><strong>The result:</strong> data center operators, AI neoclouds, and telecoms are stuck between locked incumbents, tariff-heavy imports, and exploding demand. Kahala Labs sources the most cost-effective, schedule-reliable supply chain for each customer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────── Supply Chain ────── -->
+  <section class="section" id="supply-chain">
+    <div class="container fade-up">
+      <p class="section-eyebrow">Supply Chain</p>
+      <h2 class="section-title">Why Buyers Are Switching</h2>
+      <p class="section-subtitle">The incumbent supply chain was built for a different era. Kahala Labs delivers the speed, diversification, and tariff structure that today&rsquo;s data center builds demand.</p>
+
+      <!-- Side-by-side comparison -->
+      <div class="sc-comparison">
+        <div class="sc-col sc-col--incumbent">
+          <div class="sc-col-title">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;color:#b45309;"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0zm-9 3.75h.008v.008H12v-.008z"/></svg>
+            Incumbent Path
+          </div>
+          <div class="sc-row">
+            <span class="sc-label">Lead Time</span>
+            <span class="sc-value">12&ndash;18 months</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-label">Capacity Access</span>
+            <span class="sc-value">$12B+ locked contracts</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-label">Tariff Exposure</span>
+            <span class="sc-value">Up to 104%</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-label">Supplier Diversification</span>
+            <span class="sc-value">Single-vendor lock-in</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-label">Traceability</span>
+            <span class="sc-value">Manual / partial</span>
+          </div>
+        </div>
+
+        <div class="sc-col sc-col--kahala">
+          <div class="sc-col-title">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;color:var(--teal);"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+            Kahala Labs Path
+          </div>
+          <div class="sc-row">
+            <span class="sc-label">Lead Time</span>
+            <span class="sc-value">8&ndash;12 weeks</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-label">Capacity Access</span>
+            <span class="sc-value">Open &amp; available</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-label">Tariff Exposure</span>
+            <span class="sc-value">0%</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-label">Supplier Diversification</span>
+            <span class="sc-value">Multi-supplier qualified</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-label">Traceability</span>
+            <span class="sc-value">124 QC parameters, automated</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4-stage process bar -->
+      <div class="sc-process">
+        <div class="sc-stage">
+          <div class="sc-stage-dot">1</div>
+          <h4>Qualify</h4>
+          <p>Factory-audited suppliers vetted across glass, fiber &amp; cable</p>
+        </div>
+        <div class="sc-stage">
+          <div class="sc-stage-dot">2</div>
+          <h4>Manufacture</h4>
+          <p>Vertically integrated production under one quality system</p>
+        </div>
+        <div class="sc-stage">
+          <div class="sc-stage-dot">3</div>
+          <h4>Test</h4>
+          <p>Telcordia GR-20 &amp; TL 9000 at every stage, lot-level data</p>
+        </div>
+        <div class="sc-stage">
+          <div class="sc-stage-dot">4</div>
+          <h4>Deliver</h4>
+          <p>Direct to US site, zero tariff, BEAD Buy America compliant</p>
+        </div>
+      </div>
+
+      <!-- Traceability callout -->
+      <div class="sc-traceability">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="width: 22px; height: 22px; color: var(--gold); flex-shrink: 0; margin-top: 2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9z"/></svg>
+        <div>
+          <strong>Full Lot-to-Lot Traceability</strong>
+          <p>Every cable ships with complete test data from raw glass to delivery &mdash; 124 QC parameters, zero manual data entry, immediate root-cause analysis on any quality event.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────── Qualified Manufacturer Network ────── -->
+  <section class="section section-dark" id="partners">
+    <div class="container fade-up">
+      <p class="section-eyebrow">Manufacturer Network</p>
+      <h2 class="section-title">Not a Vendor List. A Qualified Supply Engine.</h2>
+
+      <!-- Headline statement -->
+      <div class="net-headline">
+        <h3>Every manufacturer in our network has <em>earned</em> their place.</h3>
+        <p>We partner exclusively with publicly listed, vertically integrated cable manufacturers with decades of proven production. No traders. No brokers. No unvetted factories. Each supplier passes a rigorous four-stage qualification before a single meter ships.</p>
+      </div>
+
+      <!-- Impact stats -->
+      <div class="net-stats">
+        <div class="net-stat">
+          <div class="net-stat-num">100%</div>
+          <div class="net-stat-label">Factory Audited</div>
+        </div>
+        <div class="net-stat">
+          <div class="net-stat-num">124</div>
+          <div class="net-stat-label">QC Parameters Tested</div>
+        </div>
+        <div class="net-stat">
+          <div class="net-stat-num">0%</div>
+          <div class="net-stat-label">Tariff Exposure</div>
+        </div>
+        <div class="net-stat">
+          <div class="net-stat-num">0</div>
+          <div class="net-stat-label">Single-Vendor Dependence</div>
+        </div>
+      </div>
+
+      <!-- Qualification pipeline -->
+      <p style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 1.5rem;">How Manufacturers Earn Qualification</p>
+      <div class="net-pipeline">
+        <div class="net-pipe-stage">
+          <div class="net-pipe-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z"/></svg>
+          </div>
+          <h4>Discover</h4>
+          <p>Identify manufacturers with vertical integration, public listing, and multi-decade track record</p>
+        </div>
+        <div class="net-pipe-stage">
+          <div class="net-pipe-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/></svg>
+          </div>
+          <h4>Audit</h4>
+          <p>On-site factory inspection &mdash; machines, QC systems, raw material sourcing, certifications</p>
+        </div>
+        <div class="net-pipe-stage">
+          <div class="net-pipe-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
+          </div>
+          <h4>Test</h4>
+          <p>Sample production runs tested against 124 QC parameters &mdash; Telcordia GR-20, TL 9000</p>
+        </div>
+        <div class="net-pipe-stage">
+          <div class="net-pipe-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+          </div>
+          <h4>Qualify</h4>
+          <p>Approved for customer shipments with full traceability and ongoing quality monitoring</p>
+        </div>
+      </div>
+
+      <!-- Regional reach -->
+      <p style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mist); text-align: center; margin-bottom: 1rem;">Network Reach</p>
+      <div class="net-regions">
+        <div class="net-region net-region--active">
+          <span class="net-region-dot"></span>
+          APAC &mdash; Qualified &amp; Active
+        </div>
+        <div class="net-region net-region--active">
+          <span class="net-region-dot"></span>
+          South Asia &mdash; Qualified &amp; Active
+        </div>
+        <div class="net-region net-region--eval">
+          <span class="net-region-dot"></span>
+          EMEA &mdash; Under Evaluation
+        </div>
+        <div class="net-region net-region--eval">
+          <span class="net-region-dot"></span>
+          Americas &mdash; Under Evaluation
+        </div>
+        <div class="net-region net-region--eval">
+          <span class="net-region-dot"></span>
+          Middle East &mdash; Cable &amp; Power Distribution
+        </div>
+      </div>
+
+      <!-- Footer callout -->
+      <div class="net-footer">
+        <p>AI fiber demand is growing faster than any single factory can scale. We continuously qualify new manufacturers so customers never face allocation risk, schedule slippage, or single-vendor pricing leverage. <em>Manufacturer names, factory locations, and full partnership details shared during a scheduled meeting.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────── Product Portfolio ────── -->
+  <section class="section section-alt" id="products">
+    <div class="container fade-up">
+      <p class="section-eyebrow">Product Portfolio</p>
+      <h2 class="section-title">From 144-Count to 6,912-Count</h2>
+      <p class="section-subtitle">High-count optical fiber cable engineered for AI data center interconnects, campus backbones, and long-haul telecom. Both singlemode and multimode.</p>
+
+      <!-- Flagship product -->
+      <div class="prod-hero">
+        <div class="prod-hero-left">
+          <div class="prod-hero-badge">Flagship Product</div>
+          <h3 class="prod-hero-name">IBR Ribbon Cable</h3>
+          <p class="prod-hero-desc">The cable hyperscalers spec when rack density is non-negotiable. Intermittently bonded ribbons at 200&mu;m and 180&mu;m coating allow mass-fusion splicing while fitting more fiber into smaller duct pathways.</p>
+          <div class="prod-hero-specs">
+            <span class="prod-hero-spec"><strong>864 &ndash; 6,912</strong> fibers</span>
+            <span class="prod-hero-spec"><strong>SM</strong> G.657.A2 / G.652.D</span>
+            <span class="prod-hero-spec"><strong>200&mu;m</strong> / 180&mu;m coating</span>
+            <span class="prod-hero-spec"><strong>AI DC</strong> interconnect</span>
+          </div>
+        </div>
+        <div class="prod-hero-right">
+          <div class="prod-hero-number">6,912<span>fibers per cable</span></div>
+          <p class="prod-hero-callout">Highest density available today.<br>One cable. One pull. One splice event.</p>
+        </div>
+      </div>
+
+      <!-- Supporting products -->
+      <div class="prod-row">
+        <div class="prod-item">
+          <div class="prod-item-accent"></div>
+          <h3>OM5 Multimode</h3>
+          <div class="prod-item-range">288 &ndash; 6,912 fibers</div>
+          <p>Wideband multimode for short-reach data center links where SWDM multiplexing keeps transceiver costs down without sacrificing bandwidth.</p>
+          <ul class="prod-item-details">
+            <li><strong>OM5</strong> Wideband &middot; 850&ndash;953 nm</li>
+            <li><strong>200&mu;m</strong> coating</li>
+            <li>Best for <strong>short-reach DC links</strong></li>
+          </ul>
+        </div>
+        <div class="prod-item">
+          <div class="prod-item-accent"></div>
+          <h3>Gel-Free Duct Cable</h3>
+          <div class="prod-item-range">144 &ndash; 432 fibers</div>
+          <p>Dry-core design that eliminates gel cleanup at splice points. HDPE or LSZH jacket, built to Telcordia GR-20 for US outside plant and BEAD deployments.</p>
+          <ul class="prod-item-details">
+            <li><strong>SM</strong> G.657.A1 / A2</li>
+            <li><strong>Gel-free</strong> dry core &middot; HDPE / LSZH</li>
+            <li>Best for <strong>OSP duct, BEAD, campus</strong></li>
+          </ul>
+        </div>
+        <div class="prod-item">
+          <div class="prod-item-accent"></div>
+          <h3>Specialty &amp; Multicore</h3>
+          <div class="prod-item-range">Custom configurations</div>
+          <p>Proprietary multicore fiber already proven with hyperscaler customers. Designed for the 800G+ roadmap and next-generation datacom architectures.</p>
+          <ul class="prod-item-details">
+            <li><strong>Multicore</strong> fiber technology</li>
+            <li><strong>Hyperscaler</strong>-proven</li>
+            <li>Best for <strong>800G+ roadmap</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────── Factory Tour (hidden until opened from Resources) ────── -->
+  <section class="section resource-detail" id="factory" style="display:none;">
+    <div class="container fade-up">
+      <p class="section-eyebrow">Factory Verified</p>
+      <h2 class="section-title">Supplier Qualification You Can See</h2>
+      <p class="section-subtitle">Kahala Labs runs a continuous supplier identification and qualification process &mdash; vetting factories on capacity, quality systems, and schedule adherence before a single meter ships. We match aggregate demand to the right manufacturer so every order lands on time and to spec. <em style="color: var(--mist); font-size: 0.85em;">Faces are masked for privacy. Manufacturer identities and full tour details available during a scheduled meeting.</em></p>
+
+      <h3 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; color: var(--accent); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.06em;">Manufacturing Partner A &mdash; Vertically Integrated Glass-to-Cable</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="partner-welcome.jpg" alt="Personalized welcome display for Kahala Labs factory visit" loading="lazy">
+          <div class="gallery-caption">
+            <h4>VIP Manufacturing Partner Visit</h4>
+            <p>Personalized welcome at manufacturer headquarters</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="cleanroom-tour.jpg" alt="Kahala Labs team in cleanroom PPE at fiber draw plant" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Fiber Draw Plant Cleanroom</h4>
+            <p>Full PPE access to semiconductor-grade draw tower facility</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="factory-entrance.jpg" alt="Kahala Labs team at manufacturing plant entrance" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Manufacturing Campus</h4>
+            <p>Full-day tour across three integrated production facilities</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="quality-management.jpg" alt="Integrated Management System quality certifications" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Integrated Quality Management</h4>
+            <p>ISO 9001, TL 9000, ISO 14001, ISO 45001, ISO 22301 certified</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; color: var(--teal); margin-bottom: 1rem; margin-top: 2.5rem; text-transform: uppercase; letter-spacing: 0.06em;">Manufacturing Partner B &mdash; OFC &amp; Power Cable Factory</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="partnerb-production-line.jpg" alt="CCV production line at cable manufacturing facility" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Cable Production Line</h4>
+            <p>CCV extrusion line producing gel-free OFC and power cables at scale</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="partnerb-team-entrance.jpg" alt="Kahala Labs team at cable manufacturing partner facility entrance" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Partner Facility Visit</h4>
+            <p>Full-day inspection of OFC production, QA labs, and finished goods</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="partnerb-cable-yard.jpg" alt="Finished cable reels in outdoor storage yard" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Finished Cable Storage</h4>
+            <p>Rows of finished cable reels ready for global shipment</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="partnerb-cable-samples.jpg" alt="288-fiber ribbon and loose-tube cable cross-section samples" loading="lazy">
+          <div class="gallery-caption">
+            <h4>288F Cable Samples</h4>
+            <p>Ribbon and loose-tube gel-free duct cable cross-sections, G.652D compliant</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: linear-gradient(135deg, var(--navy), var(--slate)); border-radius: 12px; padding: 2.5rem; color: var(--white);">
+        <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">What We Verified On-Site</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18" style="color: var(--teal-light); flex-shrink: 0; margin-top: 2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            <div>
+              <strong style="font-size: 0.9rem;">Glass-to-Cable Vertical Integration</strong>
+              <p style="font-size: 0.82rem; color: var(--silver); margin-top: 0.25rem;">SiCl4 processing, MCVD preform deposition, 1550&deg;C sintering, draw tower pulling 32mm preforms to 125&mu;m fiber &mdash; all under one roof</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18" style="color: var(--teal-light); flex-shrink: 0; margin-top: 2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            <div>
+              <strong style="font-size: 0.9rem;">IBR Ribbon Technology</strong>
+              <p style="font-size: 0.82rem; color: var(--silver); margin-top: 0.25rem;">Proprietary UV-cured adhesive bonding enabling up to ~7,000 fibers per cable with splicing flexibility of individual fibers</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18" style="color: var(--teal-light); flex-shrink: 0; margin-top: 2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            <div>
+              <strong style="font-size: 0.9rem;">Automated QC Traceability</strong>
+              <p style="font-size: 0.82rem; color: var(--silver); margin-top: 0.25rem;">124 quality parameters per cable, zero manual data entry, full lot-to-lot traceability from raw material to finished product</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18" style="color: var(--teal-light); flex-shrink: 0; margin-top: 2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            <div>
+              <strong style="font-size: 0.9rem;">Phase 3 Expansion Capacity</strong>
+              <p style="font-size: 0.82rem; color: var(--silver); margin-top: 0.25rem;">Draw plant operating Phase 1&amp;2 with Phase 3 built. Glass plant has Future Expansion zone. Capacity to scale with demand.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18" style="color: var(--teal-light); flex-shrink: 0; margin-top: 2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            <div>
+              <strong style="font-size: 0.9rem;">European Precision Cable Machines</strong>
+              <p style="font-size: 0.82rem; color: var(--silver); margin-top: 0.25rem;">Austrian-made precision equipment &mdash; the same best-in-class machinery used by top-tier cable manufacturers worldwide</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18" style="color: var(--teal-light); flex-shrink: 0; margin-top: 2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            <div>
+              <strong style="font-size: 0.9rem;">Zero-Landfill Operations</strong>
+              <p style="font-size: 0.82rem; color: var(--silver); margin-top: 0.25rem;">EPL InterTech US-audited zero-landfill certification. On-site WTP, ETP, and green hydrogen infrastructure.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18" style="color: var(--teal-light); flex-shrink: 0; margin-top: 2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            <div>
+              <strong style="font-size: 0.9rem;">Partner B &mdash; Separate Factory Visit</strong>
+              <p style="font-size: 0.82rem; color: var(--silver); margin-top: 0.25rem;">Leading US incumbent equivalent gel-free duct cable. Telcordia GR-20 compliant. 70K FKM/month dedicated capacity. UL-approved power cables for AI DC on same campus.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18" style="color: var(--teal-light); flex-shrink: 0; margin-top: 2px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            <div>
+              <strong style="font-size: 0.9rem;">AI Data Center Power Cabling</strong>
+              <p style="font-size: 0.82rem; color: var(--silver); margin-top: 0.25rem;">UL 1569 Metal-Clad cables for high-density GPU power distribution (3x current vs. CPU racks) and UL 83 fixture wires for cooling and automation systems.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────── Quality & Certifications ────── -->
+  <section class="section section-dark resource-detail" id="quality" style="display:none;">
+    <div class="container fade-up">
+      <p class="section-eyebrow">Quality &amp; Compliance</p>
+      <h2 class="section-title">Built to the Highest Standards</h2>
+      <p class="section-subtitle">Five ISO certifications, the telecom industry's quality benchmark, and a "First Time Right" manufacturing philosophy backed by automated traceability.</p>
+
+      <div class="cert-grid">
+        <div class="cert-card">
+          <h4>ISO 9001</h4>
+          <p>Quality Management</p>
+        </div>
+        <div class="cert-card">
+          <h4>TL 9000</h4>
+          <p>Telecom Quality</p>
+        </div>
+        <div class="cert-card">
+          <h4>GR-20</h4>
+          <p>Telcordia Core Compliance</p>
+        </div>
+        <div class="cert-card">
+          <h4>ISO 14001</h4>
+          <p>Environmental Mgmt</p>
+        </div>
+        <div class="cert-card">
+          <h4>ISO 45001</h4>
+          <p>Health &amp; Safety</p>
+        </div>
+        <div class="cert-card">
+          <h4>Zero Landfill</h4>
+          <p>EPL InterTech Certified</p>
+        </div>
+        <div class="cert-card">
+          <h4>UL Listed</h4>
+          <p>MC &amp; Fixture Wire</p>
+        </div>
+        <div class="cert-card">
+          <h4>LPCB</h4>
+          <p>Fire Safety Certified</p>
+        </div>
+      </div>
+
+      <div class="quality-stats">
+        <div class="q-stat">
+          <h3>124</h3>
+          <p>QC Parameters / Cable</p>
+        </div>
+        <div class="q-stat">
+          <h3>70K</h3>
+          <p>FKM / Month Capacity</p>
+        </div>
+        <div class="q-stat">
+          <h3>100%</h3>
+          <p>Digital Traceability</p>
+        </div>
+        <div class="q-stat">
+          <h3>2</h3>
+          <p>Factory-Verified Suppliers</p>
+        </div>
+      </div>
+
+      <div class="quality-proof">
+        <div class="proof-card">
+          <h4>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+            Automated Quality Assurance
+          </h4>
+          <p>Every cable is tracked through 124 quality control parameters with zero manual data entry. Full digital traceability from raw SiCl4 through finished cable, enabling immediate root-cause analysis on any quality event.</p>
+        </div>
+        <div class="proof-card">
+          <h4>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+            Global Manufacturing Footprint
+          </h4>
+          <p>Our manufacturing partner operates 5 cable factories globally with a unified quality software platform. The same standards and processes run at every site, ensuring consistent quality regardless of production location.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────── Target Markets ────── -->
+  <section class="section section-alt" id="markets">
+    <div class="container fade-up">
+      <p class="section-eyebrow">Who We Serve</p>
+      <h2 class="section-title">Built for the Buyers Who Need Fiber Now</h2>
+      <p class="section-subtitle">We serve the organizations building the infrastructure backbone of the AI era &mdash; from GPU cloud startups to Fortune 100 telecoms.</p>
+
+      <div class="market-grid">
+        <div class="market-card">
+          <div class="market-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+          </div>
+          <h3>AI Neoclouds</h3>
+          <span class="market-stat">1,152</span>
+          <span class="market-stat-label">Fibers per NVL72 rack</span>
+          <p>GPU-dense clusters consuming fiber at 36x the rate of CPU racks. Every new training cluster is thousands of km of high-count cable on a tight timeline.</p>
+          <span class="market-examples">GPU cloud operators &amp; AI training platforms</span>
+        </div>
+        <div class="market-card">
+          <div class="market-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 0h.008v.008h-.008V7.5z"/></svg>
+          </div>
+          <h3>Colocation &amp; REITs</h3>
+          <span class="market-stat">6,912F</span>
+          <span class="market-stat-label">Backbone fiber capacity</span>
+          <p>Multi-campus operators expanding structured cabling for AI-ready facilities. High-count backbone fiber for cross-connects and meet-me rooms.</p>
+          <span class="market-examples">Major US &amp; global colo operators</span>
+        </div>
+        <div class="market-card">
+          <div class="market-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0z"/></svg>
+          </div>
+          <h3>Telecoms &amp; Fiber Infra</h3>
+          <span class="market-stat">0%</span>
+          <span class="market-stat-label">Tariff on BEAD-eligible cable</span>
+          <p>Long-haul and metro fiber builds, BEAD-funded rural deployments, and 5G backhaul. Loose tube and ribbon cable for outside plant.</p>
+          <span class="market-examples">Tier 1 &amp; Tier 2 US carriers &amp; fiber builders</span>
+        </div>
+        <div class="market-card">
+          <div class="market-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
+          </div>
+          <h3>Hyperscaler Overflow</h3>
+          <span class="market-stat">8wk</span>
+          <span class="market-stat-label">When incumbents quote 12+ months</span>
+          <p>When primary suppliers are at capacity, hyperscalers need qualified secondary sources that meet their specs and timelines.</p>
+          <span class="market-examples">Leading cloud &amp; AI infrastructure providers</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────── Resources ────── -->
+  <section class="section section-alt" id="resources">
+    <div class="container fade-up">
+      <p class="section-eyebrow">Resources</p>
+      <h2 class="section-title">Go Deeper</h2>
+      <p class="section-subtitle">Explore the details behind our procurement strategy, manufacturing partners, and quality systems.</p>
+
+      <div class="resources-grid">
+        <a href="#problem" class="resource-card" data-reveal="problem">
+          <div class="rc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+          </div>
+          <h3>The Problem</h3>
+          <p>Why the US fiber market is broken and how Kahala Labs solves it.</p>
+        </a>
+        <a href="#factory" class="resource-card" data-reveal="factory">
+          <div class="rc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 0h.008v.008h-.008V7.5z"/></svg>
+          </div>
+          <h3>Factory Tour</h3>
+          <p>Photos from our multi-day facility inspections at our manufacturing partners.</p>
+        </a>
+        <a href="#quality" class="resource-card" data-reveal="quality">
+          <div class="rc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+          </div>
+          <h3>Quality &amp; Certifications</h3>
+          <p>ISO, UL, Telcordia, and IEC certifications with end-to-end test data.</p>
+        </a>
+        <a href="#markets" class="resource-card">
+          <div class="rc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0z"/></svg>
+          </div>
+          <h3>Who We Serve</h3>
+          <p>AI neoclouds, colocation, telecoms, and hyperscaler overflow.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────── Quote Form ────── -->
+  <section class="cta-section" id="contact">
+    <div class="cta-content fade-up">
+      <p class="section-eyebrow" style="color: var(--gold);">Get a Confirmed Lead Time and Quote</p>
+      <h2>Tell us what you need.</h2>
+      <p>We&rsquo;ll match your request to a factory-verified supply path and respond within 24 hours.</p>
+
+      <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin: 1.5rem 0 0.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 600; color: var(--silver);">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 15px; height: 15px; color: var(--teal-light);"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+          24hr Response
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 600; color: var(--silver);">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 15px; height: 15px; color: var(--teal-light);"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+          No Obligation
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 600; color: var(--silver);">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 15px; height: 15px; color: var(--teal-light);"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25z"/></svg>
+          Confidential
+        </div>
+      </div>
+
+      <form id="quoteForm" class="quote-form-grid" novalidate>
+        <div class="quote-field" id="field-name">
+          <label for="qf-name">Full name <span class="req">*</span></label>
+          <input type="text" id="qf-name" name="name" autocomplete="name" required>
+          <span class="field-error">Enter your name.</span>
+        </div>
+        <div class="quote-field" id="field-email">
+          <label for="qf-email">Work email <span class="req">*</span></label>
+          <input type="email" id="qf-email" name="email" autocomplete="email" required>
+          <span class="field-error">Enter a valid work email.</span>
+        </div>
+        <div class="quote-field" id="field-fiber">
+          <label for="qf-fiber">Fiber count needed <span class="req">*</span></label>
+          <input type="text" id="qf-fiber" name="fiber_count" placeholder="Not sure? Enter &quot;Need guidance.&quot;" required>
+          <span class="field-error">Enter a fiber count or &ldquo;Need guidance.&rdquo;</span>
+        </div>
+        <div class="quote-field" id="field-window">
+          <label for="qf-window">Target delivery window <span class="req">*</span></label>
+          <select id="qf-window" name="delivery_window" required>
+            <option value="" disabled selected>Select a delivery window</option>
+            <option value="4-8 weeks">4&ndash;8 weeks</option>
+            <option value="8-12 weeks">8&ndash;12 weeks</option>
+            <option value="3-6 months">3&ndash;6 months</option>
+            <option value="6+ months">6+ months</option>
+            <option value="Exploring / not sure">Exploring / not sure</option>
+          </select>
+          <span class="field-error">Select a delivery window.</span>
+        </div>
+        <div class="quote-submit-row">
+          <button type="submit" class="quote-submit">Get Lead Time &amp; Quote</button>
+          <span class="quote-promise">Response within 24 hours &middot; No obligation</span>
+        </div>
+      </form>
+
+      <div class="quote-success" id="quoteSuccess">
+        <div class="check-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+        </div>
+        <h3>Request received.</h3>
+        <p>We&rsquo;ll respond within 24 hours with a confirmed lead time and quote matched to your requirements.</p>
+      </div>
+
+      <p style="font-size: 0.68rem; color: var(--mist); margin-top: 1.5rem;">By submitting, you agree that Kahala Labs may contact you about this request.</p>
+    </div>
+  </section>
+
+  <!-- ────── Footer ────── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <a href="kahala-labs.html" class="footer-left" style="text-decoration:none;">
+        <img src="kahala-labs-logo-3d.png" alt="Kahala Labs">
+        <span style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); border-left: 1px solid var(--steel); padding-left: 0.75rem;">Fiber Infrastructure</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="kahala-labs.html">Kahala Labs</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#supply-chain">Supply Chain</a></li>
+        <li><a href="#partners">Partners</a></li>
+        <li><a href="#resources">Resources</a></li>
+      </ul>
+      <p class="footer-copy">&copy; 2026 Kahala Labs. All rights reserved. | Cost-Optimized Fiber Optic Procurement for AI Data Centers</p>
+    </div>
+  </footer>
+
+  <!-- ────── Scripts ────── -->
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+    });
+
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => links.classList.remove('open'));
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('[data-reveal]').forEach(card => {
+      card.addEventListener('click', function(e) {
+        e.preventDefault();
+        const id = this.getAttribute('data-reveal');
+        const section = document.getElementById(id);
+        if (section) {
+          section.style.display = '';
+          section.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+          setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 50);
+        }
+      });
+    });
+
+    // Quote form validation and submission
+    const form = document.getElementById('quoteForm');
+    const success = document.getElementById('quoteSuccess');
+    if (form) {
+      const fields = {
+        name: { el: document.getElementById('qf-name'), wrap: document.getElementById('field-name') },
+        email: { el: document.getElementById('qf-email'), wrap: document.getElementById('field-email') },
+        fiber: { el: document.getElementById('qf-fiber'), wrap: document.getElementById('field-fiber') },
+        window: { el: document.getElementById('qf-window'), wrap: document.getElementById('field-window') }
+      };
+
+      // Validate on blur
+      Object.values(fields).forEach(f => {
+        f.el.addEventListener('blur', () => validateField(f));
+      });
+
+      function validateField(f) {
+        const val = f.el.value.trim();
+        let valid = true;
+        if (f.el.type === 'email') {
+          valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+        } else {
+          valid = val.length > 0;
+        }
+        f.wrap.classList.toggle('has-error', !valid);
+        return valid;
+      }
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let allValid = true;
+        Object.values(fields).forEach(f => {
+          if (!validateField(f)) allValid = false;
+        });
+        if (!allValid) return;
+
+        // Build mailto with form data
+        const name = fields.name.el.value.trim();
+        const email = fields.email.el.value.trim();
+        const fiber = fields.fiber.el.value.trim();
+        const window_val = fields.window.el.value;
+        const subject = encodeURIComponent('Fiber Quote Request — ' + name);
+        const body = encodeURIComponent(
+          'Name: ' + name + '\n' +
+          'Email: ' + email + '\n' +
+          'Fiber Count: ' + fiber + '\n' +
+          'Delivery Window: ' + window_val
+        );
+        window.location.href = 'mailto:fiber@kahalalabs.com?subject=' + subject + '&body=' + body;
+
+        // Show success state
+        form.style.display = 'none';
+        success.classList.add('active');
+      });
+    }
+  </script>
+</body>
+</html>
